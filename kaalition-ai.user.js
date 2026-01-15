@@ -58,7 +58,7 @@
         TEMPERATURE: 0.7,
         TOP_P: 0.95,
         // API ключ (можете добавить свой для лучшей доступности)
-        API_KEY: "" // Оставляем пустым для публичного доступа
+        API_KEY: "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" // Оставляем пустым для публичного доступа
     };
 
     // Системный промпт KAALITION AI
