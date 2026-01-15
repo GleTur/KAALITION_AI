@@ -1,17 +1,19 @@
 // ==UserScript==
 // @name         KAALITION AI Chat Assistant
-// @icon         data:image/png;base64,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
+// @icon         data:image/png;base64,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
 // @namespace    https://github.com/GleTur/KAALITION_AI
-// @update       Обновление промта
-// @version      3.6.6
-// @description  KAALITION AI чат ассистент с Groq API
+// @update       Обновление для Hugging Face OpenAI совместимого API
+// @version      4.1.0
+// @description  KAALITION AI чат ассистент с Hugging Face моделями через OpenAI интерфейс
 // @author       GleTur
-// @match        https://xn--d1ah4a.com/*
+// @match        https://huggingface.co/*
+// @match        https://*.huggingface.co/*
+// @match        https://chat.huggingface.co/*
 // @grant        GM_xmlhttpRequest
-// @grant        GM_getValue
-// @grant        GM_setValue
-// @updateURL    https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai.user.js
-// @downloadURL  https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai.user.js
+// @grant        GM_notification
+// @grant        unsafeWindow
+// @updateURL    https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai-hf.user.js
+// @downloadURL  https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai-hf.user.js
 // @supportURL   https://github.com/GleTur/KAALITION_AI/issues
 // @homepageURL  https://github.com/GleTur/KAALITION_AI
 // @run-at       document-end
@@ -20,20 +22,49 @@
 (function() {
     'use strict';
 
-    console.log('🤖 KAALITION AI запускается...');
+    console.log('🤖 KAALITION AI запускается для Hugging Face...');
 
-    // Конфигурация Groq
-    const CONFIG = {
-        API_URL: 'https://api.groq.com/openai/v1/chat/completions',
-        API_KEY: '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',
-        MODEL: 'llama-3.3-70b-versatile',
-        MAX_TOKENS: 8192,
-        TEMPERATURE: 1.0,
-        TOP_P: 1
+    // Конфигурация для Hugging Face через OpenAI-совместимый API
+    const HF_CONFIG = {
+        API_URL: "https://router.huggingface.co/v1/chat/completions",
+        // Доступные модели через роутер
+        MODELS: [
+            {
+                name: "meta-llama/Llama-3.3-70B-Instruct:groq",
+                display: "Llama 3.3 70B (Groq)",
+                provider: "groq"
+            },
+            {
+                name: "meta-llama/Llama-3.2-3B-Instruct",
+                display: "Llama 3.2 3B",
+                provider: "hf"
+            },
+            {
+                name: "google/gemma-2-2b-it",
+                display: "Gemma 2 2B",
+                provider: "hf"
+            },
+            {
+                name: "microsoft/Phi-3-mini-4k-instruct",
+                display: "Phi-3 Mini 4K",
+                provider: "hf"
+            },
+            {
+                name: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+                display: "Mixtral 8x7B",
+                provider: "hf"
+            }
+        ],
+        CURRENT_MODEL_INDEX: 0,
+        MAX_TOKENS: 2048,
+        TEMPERATURE: 0.7,
+        TOP_P: 0.95,
+        // API ключ (можете добавить свой для лучшей доступности)
+        API_KEY: "" // Оставляем пустым для публичного доступа
     };
 
     // Системный промпт KAALITION AI
-    const SYSTEM_PROMPT = `Ты полезный AI ассистент. Ты находишься в мессенджере ИТД.
+    const SYSTEM_PROMPT = `Ты полезный AI ассистент KAALITION AI (КААЛИЦИЯ ИИ), работающий на Hugging Face через OpenAI-совместимый API.
 
 Особые правила:
 1. Если тебя спрашивают о мессенджере ИТД - скажи, что его создал Ilya Nowkie, а программировал Димончик Кодинг
@@ -42,11 +73,14 @@
 4. Отвечай на том же языке, на котором тебе пишут
 5. Будь полезным и отвечай на любые вопросы пользователей
 6. Не пиши "Это текст создано KAALITION AI" в тексте
-7. КААЛИЦИЯ команда в которой состоят Kamra (@kamra) Турбина (@zzzuuuk) News Official (создатель КААЛИЦИЯ ИИ @newsoffc) Babrik (@BABRIK) Feihuya (@Feihuya77) Артемиус (@Artemius) Дым (создатель КААЛИЦИЯ ИИ @dmitrii_gr) Kirill Sqweezy (@l1kaa11) Skorlange (@skorlange)`;
+7. КААЛИЦИЯ команда в которой состоят Kamra (@kamra) Турбина (@zzzuuuk) News Official (создатель КААЛИЦИЯ ИИ @newsoffc) Babrik (@BABRIK) Feihuya (@Feihuya77) Артемиус (@Artemius) Дым (создатель КААЛИЦИЯ ИИ @dmitrii_gr) Kirill Sqweezy (@l1kaa11) Skorlange (@skorlange)
+
+Используемая модель: ${HF_CONFIG.MODELS[HF_CONFIG.CURRENT_MODEL_INDEX].name}`;
 
     // Переменные
     let conversationHistory = [];
     let isProcessing = false;
+    let selectedModelIndex = HF_CONFIG.CURRENT_MODEL_INDEX;
 
     // Создаем стили
     const style = document.createElement('style');
@@ -57,11 +91,11 @@
             right: 20px;
             width: 60px;
             height: 60px;
-            background: #1d9bf0;
+            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -69,11 +103,12 @@
             font-size: 28px;
             color: white;
             transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         #ai-chat-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(29, 155, 240, 0.5);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
         }
 
         #ai-chat-panel {
@@ -84,47 +119,68 @@
             max-width: 90vw;
             height: 550px;
             max-height: 80vh;
-            background: #000000;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             z-index: 9999;
             display: none;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid #333;
+            border: 1px solid #e0e0e0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         #ai-header {
-            padding: 15px;
-            background: linear-gradient(135deg, #1d9bf0 0%, #0c8de4 100%);
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         #ai-title {
             font-weight: 700;
             font-size: 16px;
             color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .model-selector {
+            margin-left: 8px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .model-selector:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         #ai-conversation {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
-            background: #000000;
+            padding: 16px;
+            background: #f8f9fa;
         }
 
         .message {
-            margin-bottom: 10px;
-            padding: 10px 15px;
+            margin-bottom: 12px;
+            padding: 12px 16px;
             border-radius: 18px;
             max-width: 85%;
             word-wrap: break-word;
-            line-height: 1.4;
+            line-height: 1.5;
             animation: fadeIn 0.3s;
+            font-size: 14px;
         }
 
         @keyframes fadeIn {
@@ -134,101 +190,124 @@
 
         .user-message {
             margin-left: auto;
-            background: #1d9bf0;
+            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
             color: white;
-            border-bottom-right-radius: 5px;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
         }
 
         .ai-message {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #e0e0e0;
-            border-bottom-left-radius: 5px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .kaalition-footer {
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 11px;
-            color: #1d9bf0;
+            color: #ff9500;
             text-align: right;
             font-style: italic;
             opacity: 0.8;
-            padding-top: 5px;
+            padding-top: 4px;
+            border-top: 1px dashed #eee;
         }
 
         .system-message {
-            background: rgba(29, 155, 240, 0.15);
-            border: 1px solid rgba(29, 155, 240, 0.4);
-            color: #1d9bf0;
-            margin: 10px auto;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #ff9500;
+            margin: 12px auto;
             text-align: center;
             font-size: 12px;
-            padding: 8px 12px;
-            border-radius: 10px;
+            padding: 10px 14px;
+            border-radius: 12px;
             max-width: 90%;
+            font-weight: 500;
+        }
+
+        .model-info {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+            text-align: center;
         }
 
         #ai-input-area {
-            padding: 15px;
-            border-top: 1px solid #333;
-            background: #000000;
+            padding: 16px;
+            border-top: 1px solid #e0e0e0;
+            background: white;
         }
 
         #ai-input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #333;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
             border-radius: 24px;
             resize: none;
             font-size: 14px;
             font-family: inherit;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             box-sizing: border-box;
             min-height: 44px;
-            background: #111;
-            color: #e0e0e0;
+            background: #f8f9fa;
+            color: #333;
+            transition: all 0.2s;
         }
 
         #ai-input:focus {
             outline: none;
-            border-color: #1d9bf0;
-            background: #1a1a1a;
+            border-color: #ffd700;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
         }
 
         #ai-input::placeholder {
-            color: #666;
+            color: #999;
         }
 
         #ai-controls {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
 
         .ai-btn {
             flex: 1;
-            padding: 10px;
+            padding: 10px 16px;
             border: none;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
             font-size: 14px;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         #ai-send {
-            background: #1d9bf0;
+            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
             color: white;
         }
 
         #ai-clear {
-            background: #222;
-            color: #e0e0e0;
-            border: 1px solid #333;
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #e0e0e0;
+        }
+
+        #ai-model-btn {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            flex: 0.8;
         }
 
         .ai-btn:hover:not(:disabled) {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(29, 155, 240, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .ai-btn:disabled {
@@ -240,13 +319,13 @@
             display: inline-flex;
             gap: 4px;
             align-items: center;
-            padding: 5px 10px;
+            padding: 8px 12px;
         }
 
         .typing-dot {
-            width: 6px;
-            height: 6px;
-            background: #1d9bf0;
+            width: 8px;
+            height: 8px;
+            background: #ffd700;
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
@@ -256,50 +335,140 @@
 
         @keyframes typing {
             0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-5px); }
+            30% { transform: translateY(-6px); }
         }
 
         /* Скроллбар */
         #ai-conversation::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         #ai-conversation::-webkit-scrollbar-track {
-            background: #111;
+            background: #f1f1f1;
+            border-radius: 4px;
         }
 
         #ai-conversation::-webkit-scrollbar-thumb {
-            background: #1d9bf0;
-            border-radius: 3px;
+            background: #ffd700;
+            border-radius: 4px;
         }
 
         #ai-conversation::-webkit-scrollbar-thumb:hover {
-            background: #0c8de4;
+            background: #ff9500;
         }
 
         /* Информация о KAALITION AI */
         .kaalition-info {
             font-size: 11px;
-            color: #1d9bf0;
+            color: #ff9500;
             text-align: center;
             margin-bottom: 5px;
+            font-weight: 500;
         }
-        
+
         .github-link {
             font-size: 10px;
-            color: #1d9bf0;
+            color: #666;
             text-align: center;
             margin-top: 5px;
             opacity: 0.7;
         }
-        
+
         .github-link a {
-            color: #1d9bf0;
+            color: #007bff;
             text-decoration: none;
         }
-        
+
         .github-link a:hover {
             text-decoration: underline;
+        }
+
+        /* Модальное окно выбора модели */
+        .model-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .model-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 400px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .model-modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .model-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .model-item {
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .model-item:hover {
+            background: #f8f9fa;
+            border-color: #ffd700;
+        }
+
+        .model-item.selected {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
+        }
+
+        .model-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .model-provider {
+            font-size: 11px;
+            color: #666;
+            background: #f1f1f1;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .model-close {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .model-close:hover {
+            background: #e9ecef;
         }
     `;
     document.head.appendChild(style);
@@ -314,20 +483,26 @@
     panel.id = 'ai-chat-panel';
     panel.innerHTML = `
         <div id="ai-header">
-            <div id="ai-title">KAALITION AI</div>
+            <div id="ai-title">
+                KAALITION AI
+                <div class="model-selector" id="model-selector">
+                    ${HF_CONFIG.MODELS[selectedModelIndex].display}
+                </div>
+            </div>
             <button id="ai-close" style="background:none;border:none;color:white;cursor:pointer;font-size:18px;">✕</button>
         </div>
         <div id="ai-conversation">
             <div class="system-message">
                 🚀 KAALITION AI готов к работе!<br>
-                <small>GitHub: GleTur/KAALITION_AI</small>
+                <small>Используется ${HF_CONFIG.MODELS[selectedModelIndex].display}</small>
             </div>
         </div>
         <div id="ai-input-area">
-            <div class="kaalition-info">КААЛИЦИЯ ИИ • Димончик Кодинг • ИТД</div>
+            <div class="kaalition-info">КААЛИЦИЯ ИИ • OpenAI совместимый API • Hugging Face</div>
             <textarea id="ai-input" placeholder="Введите любой вопрос или сообщение..." rows="2"></textarea>
             <div id="ai-controls">
                 <button class="ai-btn" id="ai-clear">Очистить</button>
+                <button class="ai-btn" id="ai-model-btn">Модель</button>
                 <button class="ai-btn" id="ai-send">Отправить</button>
             </div>
             <div class="github-link">
@@ -338,8 +513,20 @@
         </div>
     `;
 
+    // Модальное окно выбора модели
+    const modelModal = document.createElement('div');
+    modelModal.className = 'model-modal';
+    modelModal.innerHTML = `
+        <div class="model-modal-content">
+            <div class="model-modal-title">Выберите модель</div>
+            <div class="model-list" id="model-list"></div>
+            <button class="model-close" id="model-close">Закрыть</button>
+        </div>
+    `;
+
     document.body.appendChild(button);
     document.body.appendChild(panel);
+    document.body.appendChild(modelModal);
 
     // Получаем элементы DOM
     const conversation = document.getElementById('ai-conversation');
@@ -347,6 +534,36 @@
     const sendBtn = document.getElementById('ai-send');
     const clearBtn = document.getElementById('ai-clear');
     const closeBtn = document.getElementById('ai-close');
+    const modelSelector = document.getElementById('model-selector');
+    const modelBtn = document.getElementById('ai-model-btn');
+    const modelList = document.getElementById('model-list');
+    const modelClose = document.getElementById('model-close');
+
+    // Заполняем список моделей
+    function populateModelList() {
+        modelList.innerHTML = '';
+        HF_CONFIG.MODELS.forEach((model, index) => {
+            const modelItem = document.createElement('div');
+            modelItem.className = `model-item ${index === selectedModelIndex ? 'selected' : ''}`;
+            modelItem.innerHTML = `
+                <div>
+                    <div class="model-name">${model.display}</div>
+                    <small>${model.name}</small>
+                </div>
+                <div class="model-provider">${model.provider.toUpperCase()}</div>
+            `;
+            modelItem.addEventListener('click', () => {
+                selectedModelIndex = index;
+                modelSelector.textContent = model.display;
+                addMessage('system', `✅ Модель изменена на: ${model.display}`, true);
+                populateModelList();
+                setTimeout(() => modelModal.style.display = 'none', 300);
+            });
+            modelList.appendChild(modelItem);
+        });
+    }
+
+    populateModelList();
 
     // Функция добавления сообщения
     function addMessage(role, text, isSystem = false) {
@@ -363,7 +580,7 @@
             
             // Добавляем подпись KAALITION AI только для ответов AI
             if (role === 'ai') {
-                formattedText = text + '\n\n<small class="kaalition-footer">This text created by KAALITION AI</small>';
+                formattedText = text + '\n\n<small class="kaalition-footer">Этот текст создан KAALITION AI</small>';
             }
             
             messageDiv.innerHTML = formattedText.replace(/\n/g, '<br>');
@@ -373,8 +590,8 @@
                 conversationHistory.push({ role, content: text });
 
                 // Ограничиваем историю
-                if (conversationHistory.length > 20) {
-                    conversationHistory = conversationHistory.slice(-20);
+                if (conversationHistory.length > 15) {
+                    conversationHistory = conversationHistory.slice(-15);
                 }
             }
         }
@@ -393,54 +610,57 @@
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
             </div>
+            <div class="model-info">${HF_CONFIG.MODELS[selectedModelIndex].display}</div>
         `;
         conversation.appendChild(indicator);
         conversation.scrollTop = conversation.scrollHeight;
         return indicator;
     }
 
-    // Функция вызова Groq API
-    function callGroqAPI(messages) {
+    // Функция вызова Hugging Face API через OpenAI интерфейс
+    function callHuggingFaceAPI(messages) {
         return new Promise((resolve, reject) => {
-            // Проверяем API ключ
-            if (!CONFIG.API_KEY || CONFIG.API_KEY.length < 10) {
-                reject(new Error('API ключ Groq не настроен'));
-                return;
-            }
+            const selectedModel = HF_CONFIG.MODELS[selectedModelIndex];
+            console.log(`📤 Отправка запроса к модели: ${selectedModel.name}`);
 
-            console.log(`📤 Отправка запроса к Groq API...`);
-
-            // Всегда добавляем системный промпт первым сообщением
-            const fullMessages = [
+            // Подготавливаем сообщения для API
+            const apiMessages = [
                 {
                     role: "system",
-                    content: SYSTEM_PROMPT
+                    content: SYSTEM_PROMPT.replace('${HF_CONFIG.MODELS[HF_CONFIG.CURRENT_MODEL_INDEX].name}', selectedModel.name)
                 },
                 ...messages
             ];
 
             // Формируем запрос
             const requestData = {
-                model: CONFIG.MODEL,
-                messages: fullMessages,
-                temperature: CONFIG.TEMPERATURE,
-                max_tokens: CONFIG.MAX_TOKENS,
-                top_p: CONFIG.TOP_P,
+                model: selectedModel.name,
+                messages: apiMessages,
+                temperature: HF_CONFIG.TEMPERATURE,
+                max_tokens: HF_CONFIG.MAX_TOKENS,
+                top_p: HF_CONFIG.TOP_P,
                 stream: false
             };
 
+            // Определяем заголовки
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            };
+
+            // Добавляем токен если есть
+            if (HF_CONFIG.API_KEY && HF_CONFIG.API_KEY.trim() !== '') {
+                headers['Authorization'] = `Bearer ${HF_CONFIG.API_KEY}`;
+            }
+
             GM_xmlhttpRequest({
                 method: 'POST',
-                url: CONFIG.API_URL,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${CONFIG.API_KEY}`,
-                    'Accept': 'application/json'
-                },
+                url: HF_CONFIG.API_URL,
+                headers: headers,
                 data: JSON.stringify(requestData),
-                timeout: 60000,
+                timeout: 90000, // 90 секунд для больших моделей
                 onload: function(response) {
-                    console.log(`📥 Groq API ответ: ${response.status}`);
+                    console.log(`📥 Hugging Face API ответ: ${response.status}`);
 
                     if (response.status === 200) {
                         try {
@@ -448,40 +668,42 @@
                             
                             if (data.choices && data.choices[0] && data.choices[0].message) {
                                 const content = data.choices[0].message.content;
-                                console.log(`📄 Длина ответа: ${content.length} символов`);
+                                console.log(`📄 Ответ получен: ${content.length} символов`);
                                 resolve(content);
+                            } else if (data.error) {
+                                console.error('❌ Ошибка API:', data.error);
+                                reject(new Error(data.error.message || 'Ошибка API'));
                             } else {
                                 console.error('❌ Некорректная структура ответа:', data);
-                                reject(new Error('Некорректный ответ от Groq API'));
+                                reject(new Error('Некорректный ответ от Hugging Face API'));
                             }
                         } catch (e) {
                             console.error('❌ Ошибка разбора JSON:', e);
                             reject(new Error('Ошибка разбора JSON ответа'));
                         }
+                    } else if (response.status === 429) {
+                        reject(new Error('⚠️ Слишком много запросов. Попробуйте позже или используйте другую модель.'));
+                    } else if (response.status === 401) {
+                        reject(new Error('🔑 Требуется авторизация. Добавьте API ключ в настройках.'));
+                    } else if (response.status === 503) {
+                        reject(new Error('🔄 Модель загружается. Подождите 10-20 секунд и попробуйте снова.'));
                     } else {
                         let errorMsg = `Ошибка ${response.status}`;
                         try {
                             const errorData = JSON.parse(response.responseText);
                             errorMsg = errorData.error?.message || errorMsg;
-                            
-                            if (response.status === 429) {
-                                errorMsg = '⚠️ Лимит запросов исчерпан. Попробуйте позже.';
-                            } else if (response.status === 401) {
-                                errorMsg = '🔑 Неверный API ключ. Получите новый ключ на console.groq.com';
-                            }
                         } catch (e) {
                             console.error('❌ Ошибка разбора ошибки:', e);
                         }
-
                         reject(new Error(errorMsg));
                     }
                 },
                 onerror: function(error) {
                     console.error('🌐 Сетевая ошибка:', error);
-                    reject(new Error('Сетевая ошибка при подключении к Groq API'));
+                    reject(new Error('Сетевая ошибка при подключении к Hugging Face API'));
                 },
                 ontimeout: function() {
-                    reject(new Error('⏰ Таймаут запроса к Groq (60 секунд)'));
+                    reject(new Error('⏰ Таймаут запроса (90 секунд). Модель может быть перегружена.'));
                 }
             });
         });
@@ -498,6 +720,7 @@
         sendBtn.textContent = 'Отправка...';
         sendBtn.disabled = true;
         input.disabled = true;
+        modelBtn.disabled = true;
 
         // Добавляем сообщение пользователя
         addMessage('user', message);
@@ -528,12 +751,12 @@
             });
 
             // Ограничиваем историю для API
-            const limitedMessages = messages.slice(-8);
+            const limitedMessages = messages.slice(-10);
 
             console.log(`💬 Отправка сообщения: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}"`);
             
-            // Отправляем запрос к Groq
-            const response = await callGroqAPI(limitedMessages);
+            // Отправляем запрос к Hugging Face
+            const response = await callHuggingFaceAPI(limitedMessages);
 
             // Удаляем индикатор
             typingIndicator.remove();
@@ -541,10 +764,10 @@
             // Добавляем ответ
             addMessage('ai', response);
 
-            console.log(`✅ KAALITION AI ответил успешно`);
+            console.log(`✅ KAALITION AI ответил успешно через модель ${HF_CONFIG.MODELS[selectedModelIndex].name}`);
 
         } catch (error) {
-            console.error('❌ Ошибка Groq:', error.message);
+            console.error('❌ Ошибка Hugging Face:', error.message);
 
             // Удаляем индикатор
             typingIndicator.remove();
@@ -552,23 +775,21 @@
             // Показываем ошибку
             let errorMsg = error.message;
 
-            if (error.message.includes('404')) {
-                errorMsg = '🌐 Groq API временно недоступен.';
-            } else if (error.message.includes('401')) {
-                errorMsg = '🔑 Неверный API ключ. Получите новый ключ на console.groq.com';
-            } else if (error.message.includes('429')) {
-                errorMsg = '⚠️ Лимит бесплатных запросов исчерпан. Попробуйте позже.';
-            } else if (error.message.includes('таймаут')) {
-                errorMsg = '⏰ Groq не ответил вовремя. Попробуйте еще раз.';
+            // Предлагаем альтернативные действия при ошибках
+            if (error.message.includes('загружается') || error.message.includes('таймаут')) {
+                errorMsg += '\n\n💡 Совет: Попробуйте выбрать другую модель или подождите минуту.';
+            } else if (error.message.includes('слишком много запросов')) {
+                errorMsg += '\n\n💡 Совет: Подождите 30-60 секунд или выберите менее популярную модель.';
             }
 
-            addMessage('system', `❌ ${errorMsg}`);
+            addMessage('system', `❌ ${errorMsg}`, true);
 
         } finally {
             isProcessing = false;
             sendBtn.textContent = 'Отправить';
             sendBtn.disabled = false;
             input.disabled = false;
+            modelBtn.disabled = false;
             setTimeout(() => input.focus(), 100);
         }
     }
@@ -577,7 +798,7 @@
     function clearChat() {
         conversation.innerHTML = '';
         conversationHistory = [];
-        addMessage('system', `🧹 Чат очищен. Можете задавать любые вопросы!`, true);
+        addMessage('system', `🧹 Чат очищен. Можете задавать любые вопросы!\nИспользуемая модель: ${HF_CONFIG.MODELS[selectedModelIndex].display}`, true);
     }
 
     // Открытие/закрытие панели
@@ -601,6 +822,16 @@
 
     sendBtn.addEventListener('click', sendMessage);
     clearBtn.addEventListener('click', clearChat);
+    modelBtn.addEventListener('click', () => modelModal.style.display = 'flex');
+    modelSelector.addEventListener('click', () => modelModal.style.display = 'flex');
+    modelClose.addEventListener('click', () => modelModal.style.display = 'none');
+
+    // Закрытие модального окна при клике вне его
+    modelModal.addEventListener('click', (e) => {
+        if (e.target === modelModal) {
+            modelModal.style.display = 'none';
+        }
+    });
 
     // Отправка по Enter
     input.addEventListener('keydown', function(e) {
@@ -626,6 +857,7 @@
 
     // Горячие клавиши
     document.addEventListener('keydown', function(e) {
+        // Alt+A для открытия/закрытия чата
         if (e.altKey && e.key === 'a' && !isProcessing) {
             e.preventDefault();
             togglePanel();
@@ -636,16 +868,23 @@
             e.preventDefault();
             clearChat();
         }
+        
+        // Alt+M для выбора модели
+        if (e.altKey && e.key === 'm' && !isProcessing && panel.style.display === 'flex') {
+            e.preventDefault();
+            modelModal.style.display = 'flex';
+        }
     });
 
     // Уведомление о загрузке
-    console.log('✅ KAALITION AI Chat Assistant готов к работе!');
+    console.log('✅ KAALITION AI Chat Assistant готов к работе на Hugging Face!');
+    console.log(`📋 Используется модель: ${HF_CONFIG.MODELS[selectedModelIndex].name}`);
+
+    // Автоматическое тестовое сообщение при загрузке
     setTimeout(() => {
-        GM_notification({
-            title: 'KAALITION AI',
-            text: 'Нажмите 🤖 для общения',
-            timeout: 2000
-        });
+        if (conversationHistory.length === 0) {
+            addMessage('system', `✨ KAALITION AI активирован!\n\nДоступные команды:\n• Alt+A - Открыть/закрыть чат\n• Alt+C - Очистить историю\n• Alt+M - Выбрать модель\n\nТекущая модель: ${HF_CONFIG.MODELS[selectedModelIndex].display}`, true);
+        }
     }, 1000);
 
 })();
