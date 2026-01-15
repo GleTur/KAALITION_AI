@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         KAALITION AI Chat Assistant
-// @namespace    https://github.com/GleTur/kaalition-ai
+// @namespace    https://github.com/GleTur/KAALITION_AI
 // @version      3.2.7 // 3 - версия 2 - под версия 7 - количество правил в промте
 // @description  KAALITION AI чат ассистент с Groq API
 // @author       News Official и Дым
@@ -9,10 +9,10 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
-// @updateURL    https://raw.githubusercontent.com/GleTur/kaalition-ai/main/kaalition-ai.user.js
-// @downloadURL  https://raw.githubusercontent.com/GleTur/kaalition-ai/main/kaalition-ai.user.js
-// @supportURL   https://github.com/GleTur/kaalition-ai/issues
-// @homepageURL  https://github.com/GleTur/kaalition-ai
+// @updateURL    https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
+// @downloadURL  https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
+// @supportURL   https://github.com/GleTur/KAALITION_AI/issues
+// @homepageURL  https://github.com/GleTur/KAALITION_AI
 // @run-at       document-end
 // ==/UserScript==
 
