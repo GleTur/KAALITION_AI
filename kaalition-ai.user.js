@@ -1,16 +1,15 @@
 // ==UserScript==
-// @name         KAALITION AI Chat Assistant
+// @name         KAALITION AI
 // @namespace    https://github.com/GleTur/KAALITION_AI
 // @version      3.2.7
-// @description  KAALITION AI чат ассистент с Groq API
-// @author       GleTur
+// @description  KAALITION AI
+// @author       News Official и Дым
 // @match        https://xn--d1ah4a.com/*
 // @grant        GM_xmlhttpRequest
-// @grant        GM_notification
 // @grant        GM_getValue
 // @grant        GM_setValue
-// @updateURL    https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai.user.js
-// @downloadURL  https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai.user.js
+// @updateURL    https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
+// @downloadURL  https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
 // @supportURL   https://github.com/GleTur/KAALITION_AI/issues
 // @homepageURL  https://github.com/GleTur/KAALITION_AI
 // @run-at       document-end
@@ -40,7 +39,8 @@
 3. Ты - KAALITION AI (КААЛИЦИЯ ИИ)
 4. Отвечай на том же языке, на котором тебе пишут
 5. Будь полезным и отвечай на любые вопросы пользователей
-6. не пиши "код был создан ИИ"`;
+6. не пиши "код был создан ИИ"
+7. каалиция это группа в которой состоят твои создатели - состав Kamra (@kamra) Турбина (@zzzuuuk) News Official (Твой создатель @newsoffc) Babrik (@BABRIK) Feihuya (@Feihuya77) Артемиус (@Artemius) Дым (Твой создатель @dmitrii_gr) Kirill Sqweezy (@l1kaa11) Skorlange (@skorlange)`;
 
     // Переменные
     let conversationHistory = [];
