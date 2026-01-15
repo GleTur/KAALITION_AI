@@ -23,7 +23,7 @@
     // Конфигурация Groq
     const CONFIG = {
         API_URL: 'https://api.groq.com/openai/v1/chat/completions',
-        API_KEY: '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',
+        API_KEY: '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',
         MODEL: 'llama-3.3-70b-versatile',
         MAX_TOKENS: 8192,
         TEMPERATURE: 1.0,
