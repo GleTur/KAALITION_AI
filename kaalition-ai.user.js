@@ -6,7 +6,6 @@
 // @author       GleTur
 // @match        *://*/*
 // @grant        GM_xmlhttpRequest
-// @grant        GM_notification
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @updateURL    https://raw.githubusercontent.com/GleTur/KAALITION_AI/main/kaalition-ai.user.js
