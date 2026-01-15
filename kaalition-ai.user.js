@@ -1,14 +1,12 @@
 // ==UserScript==
 // @name         KAALITION AI Chat Assistant
-// @icon         data:image/png;base64,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
+// @icon         data:image/png;base64,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
 // @namespace    https://github.com/GleTur/KAALITION_AI
 // @update       Обновление для Hugging Face OpenAI совместимого API
 // @version      4.1.0
 // @description  KAALITION AI чат ассистент с Hugging Face моделями через OpenAI интерфейс
 // @author       GleTur
-// @match        https://huggingface.co/*
-// @match        https://*.huggingface.co/*
-// @match        https://chat.huggingface.co/*
+// @match        https://xn--d1ah4a.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_notification
 // @grant        unsafeWindow
@@ -82,7 +80,7 @@
     let isProcessing = false;
     let selectedModelIndex = HF_CONFIG.CURRENT_MODEL_INDEX;
 
-    // Создаем стили
+    // Создаем стили как в оригинале
     const style = document.createElement('style');
     style.textContent = `
         #ai-chat-btn {
@@ -91,11 +89,11 @@
             right: 20px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+            background: #1d9bf0;
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -103,12 +101,11 @@
             font-size: 28px;
             color: white;
             transition: all 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         #ai-chat-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 6px 20px rgba(29, 155, 240, 0.5);
         }
 
         #ai-chat-panel {
@@ -119,25 +116,24 @@
             max-width: 90vw;
             height: 550px;
             max-height: 80vh;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            background: #000000;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
             z-index: 9999;
             display: none;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         #ai-header {
-            padding: 16px 20px;
-            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+            padding: 15px;
+            background: linear-gradient(135deg, #1d9bf0 0%, #0c8de4 100%);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         #ai-title {
@@ -168,19 +164,18 @@
         #ai-conversation {
             flex: 1;
             overflow-y: auto;
-            padding: 16px;
-            background: #f8f9fa;
+            padding: 15px;
+            background: #000000;
         }
 
         .message {
-            margin-bottom: 12px;
-            padding: 12px 16px;
+            margin-bottom: 10px;
+            padding: 10px 15px;
             border-radius: 18px;
             max-width: 85%;
             word-wrap: break-word;
-            line-height: 1.5;
+            line-height: 1.4;
             animation: fadeIn 0.3s;
-            font-size: 14px;
         }
 
         @keyframes fadeIn {
@@ -190,124 +185,107 @@
 
         .user-message {
             margin-left: auto;
-            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+            background: #1d9bf0;
             color: white;
-            border-bottom-right-radius: 4px;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+            border-bottom-right-radius: 5px;
         }
 
         .ai-message {
-            background: white;
-            border: 1px solid #e0e0e0;
-            color: #333;
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #e0e0e0;
+            border-bottom-left-radius: 5px;
         }
 
         .kaalition-footer {
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: 11px;
-            color: #ff9500;
+            color: #1d9bf0;
             text-align: right;
             font-style: italic;
             opacity: 0.8;
-            padding-top: 4px;
-            border-top: 1px dashed #eee;
+            padding-top: 5px;
         }
 
         .system-message {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            color: #ff9500;
-            margin: 12px auto;
+            background: rgba(29, 155, 240, 0.15);
+            border: 1px solid rgba(29, 155, 240, 0.4);
+            color: #1d9bf0;
+            margin: 10px auto;
             text-align: center;
             font-size: 12px;
-            padding: 10px 14px;
-            border-radius: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
             max-width: 90%;
-            font-weight: 500;
-        }
-
-        .model-info {
-            font-size: 11px;
-            color: #666;
-            margin-top: 4px;
-            text-align: center;
         }
 
         #ai-input-area {
-            padding: 16px;
-            border-top: 1px solid #e0e0e0;
-            background: white;
+            padding: 15px;
+            border-top: 1px solid #333;
+            background: #000000;
         }
 
         #ai-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            border: 2px solid #333;
             border-radius: 24px;
             resize: none;
             font-size: 14px;
             font-family: inherit;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             box-sizing: border-box;
             min-height: 44px;
-            background: #f8f9fa;
-            color: #333;
-            transition: all 0.2s;
+            background: #111;
+            color: #e0e0e0;
         }
 
         #ai-input:focus {
             outline: none;
-            border-color: #ffd700;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+            border-color: #1d9bf0;
+            background: #1a1a1a;
         }
 
         #ai-input::placeholder {
-            color: #999;
+            color: #666;
         }
 
         #ai-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .ai-btn {
             flex: 1;
-            padding: 10px 16px;
+            padding: 10px;
             border: none;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
             font-size: 14px;
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
         }
 
         #ai-send {
-            background: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+            background: #1d9bf0;
             color: white;
         }
 
         #ai-clear {
-            background: #f8f9fa;
-            color: #666;
-            border: 1px solid #e0e0e0;
+            background: #222;
+            color: #e0e0e0;
+            border: 1px solid #333;
         }
 
         #ai-model-btn {
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            background: #1d9bf0;
             color: white;
             flex: 0.8;
         }
 
         .ai-btn:hover:not(:disabled) {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(29, 155, 240, 0.3);
         }
 
         .ai-btn:disabled {
@@ -319,13 +297,13 @@
             display: inline-flex;
             gap: 4px;
             align-items: center;
-            padding: 8px 12px;
+            padding: 5px 10px;
         }
 
         .typing-dot {
-            width: 8px;
-            height: 8px;
-            background: #ffd700;
+            width: 6px;
+            height: 6px;
+            background: #1d9bf0;
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
@@ -335,47 +313,45 @@
 
         @keyframes typing {
             0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-6px); }
+            30% { transform: translateY(-5px); }
         }
 
         /* Скроллбар */
         #ai-conversation::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         #ai-conversation::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
+            background: #111;
         }
 
         #ai-conversation::-webkit-scrollbar-thumb {
-            background: #ffd700;
-            border-radius: 4px;
+            background: #1d9bf0;
+            border-radius: 3px;
         }
 
         #ai-conversation::-webkit-scrollbar-thumb:hover {
-            background: #ff9500;
+            background: #0c8de4;
         }
 
         /* Информация о KAALITION AI */
         .kaalition-info {
             font-size: 11px;
-            color: #ff9500;
+            color: #1d9bf0;
             text-align: center;
             margin-bottom: 5px;
-            font-weight: 500;
         }
 
         .github-link {
             font-size: 10px;
-            color: #666;
+            color: #1d9bf0;
             text-align: center;
             margin-top: 5px;
             opacity: 0.7;
         }
 
         .github-link a {
-            color: #007bff;
+            color: #1d9bf0;
             text-decoration: none;
         }
 
@@ -398,20 +374,22 @@
         }
 
         .model-modal-content {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
+            background: #000000;
+            border-radius: 12px;
+            padding: 20px;
             width: 400px;
             max-width: 90vw;
             max-height: 80vh;
             overflow-y: auto;
+            border: 1px solid #333;
         }
 
         .model-modal-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             margin-bottom: 16px;
-            color: #333;
+            color: #1d9bf0;
+            text-align: center;
         }
 
         .model-list {
@@ -422,44 +400,45 @@
 
         .model-item {
             padding: 12px 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: #1a1a1a;
         }
 
         .model-item:hover {
-            background: #f8f9fa;
-            border-color: #ffd700;
+            background: #222;
+            border-color: #1d9bf0;
         }
 
         .model-item.selected {
-            background: rgba(255, 215, 0, 0.1);
-            border-color: #ffd700;
+            background: rgba(29, 155, 240, 0.2);
+            border-color: #1d9bf0;
         }
 
         .model-name {
             font-weight: 600;
-            color: #333;
+            color: #e0e0e0;
         }
 
         .model-provider {
             font-size: 11px;
-            color: #666;
-            background: #f1f1f1;
+            color: #999;
+            background: #333;
             padding: 2px 8px;
             border-radius: 10px;
         }
 
         .model-close {
-            background: #f8f9fa;
-            color: #666;
-            border: 1px solid #e0e0e0;
+            background: #1d9bf0;
+            color: white;
+            border: none;
             padding: 10px 20px;
-            border-radius: 12px;
+            border-radius: 20px;
             cursor: pointer;
             margin-top: 16px;
             width: 100%;
@@ -468,7 +447,8 @@
         }
 
         .model-close:hover {
-            background: #e9ecef;
+            background: #0c8de4;
+            transform: translateY(-1px);
         }
     `;
     document.head.appendChild(style);
@@ -548,7 +528,7 @@
             modelItem.innerHTML = `
                 <div>
                     <div class="model-name">${model.display}</div>
-                    <small>${model.name}</small>
+                    <small style="color: #999; font-size: 11px;">${model.name}</small>
                 </div>
                 <div class="model-provider">${model.provider.toUpperCase()}</div>
             `;
@@ -610,7 +590,6 @@
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
             </div>
-            <div class="model-info">${HF_CONFIG.MODELS[selectedModelIndex].display}</div>
         `;
         conversation.appendChild(indicator);
         conversation.scrollTop = conversation.scrollHeight;
