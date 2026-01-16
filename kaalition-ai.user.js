@@ -16,11 +16,10 @@
 // @grant        GM_addStyle
 // @run-at       document-end
 // ==/UserScript==
-
 (function() {
     'use strict';
 
-    console.log('🚀 KAALITION AI PRO - Ресайзинг окна кода');
+    console.log('🚀 KAALITION AI PRO - Ресайзинг окна кода с темой сайта');
 
     // ========== КОНФИГ ==========
     const CONFIG = {
@@ -251,8 +250,7 @@
 7. каалиция это группа в которой состоят твои создатели - состав Kamra (@kamra) Турбина (@zzzuuuk) News Official (Твой создатель @newsoffc) Babrik (@BABRIK) Feihuya (@Feihuya77) Артемиус (@Artemius) Дым (Твой создатель @dmitrii_gr) Kirill Sqweezy (@l1kaa11) Skorlange (@skorlange)
 8. вопрос не задавали - не отвечай то есть если спросили как дела то ты ответишь все хорошо, а ут тебя как? а не все хорошо меня создал и так далее
 9. не повторяй вопрос много раз в разнах сообщениях
-10. Если используешь термины, которые могут быть непонятны, давай краткое пояснение.
-`;
+10. Если используешь термины, которые могут быть непонятны, давай краткое пояснение.`;
 
     const CODE_ASSISTANT_PROMPT = `Роль: Ты — ИИ-программист, опытный senior-разработчик, который пишет чистый, эффективный и профессиональный код твое имя Коди (Cody). Ты внимательно анализируешь задачу, задаешь уточняющие вопросы при неясностях, предлагаешь оптимальные решения и подробно комментируешь ключевые части кода.
 Задача: [Чётко опиши задачу, например: «Напиши функцию на Python, которая находит пересечение двух списков с сохранением порядка»].
@@ -302,88 +300,68 @@
         }
     };
 
-    // ========== СИСТЕМА ТЕМ ==========
-    const THEMES = {
-        light: {
-            panelBg: '#ffffff',
-            panelBorder: '#e1e8ed',
-            panelShadow: 'rgba(101, 119, 134, 0.2)',
-            headerBg: '#f7f9fa',
-            headerText: '#0f1419',
-            headerBorder: '#e1e8ed',
-            tabActive: '#1d9bf0',
-            tabInactive: '#536471',
-            tabHover: 'rgba(29, 155, 240, 0.1)',
-            chatBg: '#ffffff',
+    // ========== СИСТЕМА ТЕМ (ПРИВЯЗКА К CSS ПЕРЕМЕННЫМ САЙТА) ==========
+    const getSiteTheme = () => {
+        const root = document.documentElement;
+        const isDark = root.getAttribute('data-theme') === 'dark';
+
+        return {
+            // Основные цвета
+            panelBg: getComputedStyle(root).getPropertyValue('--color-card').trim() || (isDark ? '#181a1d' : '#ffffff'),
+            panelBorder: getComputedStyle(root).getPropertyValue('--color-border').trim() || (isDark ? 'rgb(45 48 52 / 100%)' : '#e1e8ed'),
+            panelShadow: isDark ? 'rgba(0, 0, 0, 0.5)' : 'rgba(101, 119, 134, 0.2)',
+
+            // Шапка
+            headerBg: getComputedStyle(root).getPropertyValue('--color-item-bg').trim() || (isDark ? 'rgb(24 26 29 / 100%)' : '#f7f9fa'),
+            headerText: getComputedStyle(root).getPropertyValue('--color-text').trim() || (isDark ? '#e4e6e8' : '#0f1419'),
+            headerBorder: getComputedStyle(root).getPropertyValue('--color-border-light').trim() || (isDark ? 'rgb(45 48 52 / 80%)' : '#ebeef0'),
+
+            // Вкладки
+            tabActive: '#1d9bf0', // Синий акцент сохраняем
+            tabInactive: getComputedStyle(root).getPropertyValue('--color-text-secondary').trim() || (isDark ? '#8a8f96' : '#536471'),
+            tabHover: isDark ? 'rgba(29, 155, 240, 0.2)' : 'rgba(29, 155, 240, 0.1)',
+
+            // Чат
+            chatBg: getComputedStyle(root).getPropertyValue('--color-background').trim() || (isDark ? '#101214' : '#fff'),
             messageUserBg: '#1d9bf0',
             messageUserText: '#ffffff',
-            messageAiBg: '#f7f9fa',
-            messageAiText: '#0f1419',
-            messageAiBorder: '#e1e8ed',
+            messageAiBg: getComputedStyle(root).getPropertyValue('--color-item-bg').trim() || (isDark ? 'rgb(24 26 29 / 100%)' : '#f7f9fa'),
+            messageAiText: getComputedStyle(root).getPropertyValue('--color-text').trim() || (isDark ? '#e4e6e8' : '#0f1419'),
+            messageAiBorder: getComputedStyle(root).getPropertyValue('--color-border-light').trim() || (isDark ? 'rgb(45 48 52 / 80%)' : '#ebeef0'),
             messageSystemBg: 'rgba(29, 155, 240, 0.1)',
             messageSystemText: '#1d9bf0',
             messageSystemBorder: 'rgba(29, 155, 240, 0.2)',
-            inputBg: '#ffffff',
-            inputText: '#0f1419',
-            inputBorder: '#e1e8ed',
-            inputPlaceholder: '#8899a6',
+
+            // Поля ввода
+            inputBg: getComputedStyle(root).getPropertyValue('--color-input-bg').trim() || (isDark ? '#1e2023' : '#eff3f4'),
+            inputText: getComputedStyle(root).getPropertyValue('--color-text').trim() || (isDark ? '#e4e6e8' : '#0f1419'),
+            inputBorder: getComputedStyle(root).getPropertyValue('--color-border').trim() || (isDark ? 'rgb(45 48 52 / 100%)' : '#e1e8ed'),
+            inputPlaceholder: getComputedStyle(root).getPropertyValue('--color-text-muted').trim() || (isDark ? '#6a6f76' : '#8899a6'),
+
+            // Кнопки
             buttonPrimary: '#1d9bf0',
             buttonPrimaryText: '#ffffff',
-            buttonSecondary: '#f7f9fa',
-            buttonSecondaryText: '#0f1419',
-            buttonSecondaryBorder: '#e1e8ed',
+            buttonSecondary: getComputedStyle(root).getPropertyValue('--color-item-bg').trim() || (isDark ? 'rgb(24 26 29 / 100%)' : '#f7f9fa'),
+            buttonSecondaryText: getComputedStyle(root).getPropertyValue('--color-text').trim() || (isDark ? '#e4e6e8' : '#0f1419'),
+            buttonSecondaryBorder: getComputedStyle(root).getPropertyValue('--color-border-light').trim() || (isDark ? 'rgb(45 48 52 / 80%)' : '#ebeef0'),
             buttonSuccess: '#00b894',
             buttonWarning: '#fdcb6e',
             buttonDanger: '#ff7675',
             buttonInfo: '#6c5ce7',
-            scrollbarTrack: '#f1f1f1',
+
+            // Скроллбар
+            scrollbarTrack: isDark ? '#192734' : '#f1f1f1',
             scrollbarThumb: '#1d9bf0',
             scrollbarThumbHover: '#0c8de4',
-            codeBg: '#f6f8fa',
-            codeText: '#24292e',
+
+            // Код
+            codeBg: isDark ? '#1e1e1e' : '#f6f8fa',
+            codeText: isDark ? '#d4d4d4' : '#24292e',
+
+            // Ресайзер
             resizerBg: '#1d9bf0',
             resizerHover: '#0c8de4'
-        },
-        dark: {
-            panelBg: '#15202b',
-            panelBorder: '#38444d',
-            panelShadow: 'rgba(0, 0, 0, 0.5)',
-            headerBg: '#192734',
-            headerText: '#ffffff',
-            headerBorder: '#38444d',
-            tabActive: '#1d9bf0',
-            tabInactive: '#8b98a5',
-            tabHover: 'rgba(29, 155, 240, 0.2)',
-            chatBg: '#15202b',
-            messageUserBg: '#1d9bf0',
-            messageUserText: '#ffffff',
-            messageAiBg: '#192734',
-            messageAiText: '#ffffff',
-            messageAiBorder: '#38444d',
-            messageSystemBg: 'rgba(29, 155, 240, 0.2)',
-            messageSystemText: '#1d9bf0',
-            messageSystemBorder: 'rgba(29, 155, 240, 0.3)',
-            inputBg: '#15202b',
-            inputText: '#ffffff',
-            inputBorder: '#38444d',
-            inputPlaceholder: '#8b98a5',
-            buttonPrimary: '#1d9bf0',
-            buttonPrimaryText: '#ffffff',
-            buttonSecondary: '#192734',
-            buttonSecondaryText: '#ffffff',
-            buttonSecondaryBorder: '#38444d',
-            buttonSuccess: '#00b894',
-            buttonWarning: '#fdcb6e',
-            buttonDanger: '#ff7675',
-            buttonInfo: '#6c5ce7',
-            scrollbarTrack: '#192734',
-            scrollbarThumb: '#1d9bf0',
-            scrollbarThumbHover: '#0c8de4',
-            codeBg: '#1e1e1e',
-            codeText: '#d4d4d4',
-            resizerBg: '#1d9bf0',
-            resizerHover: '#0c8de4'
-        }
+        };
     };
 
     // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
@@ -392,58 +370,112 @@
     let activeTab = 'ai';
     let currentPrompt = GENERAL_PROMPT;
     let isProcessing = false;
-    let customPrompts = {};
     let codeAssistantPanelVisible = false;
     let resizerActive = false;
     let initialX = 0;
     let initialLeftWidth = 60;
 
-    // ========== ОПРЕДЕЛЕНИЕ ТЕМЫ ==========
+    // ========== ОПРЕДЕЛЕНИЕ ТЕМЫ САЙТА ==========
     function detectTheme() {
         const html = document.documentElement;
         const body = document.body;
 
+        // Проверяем data-theme атрибут
         if (html.getAttribute('data-theme') === 'dark') return 'dark';
+
+        // Проверяем классы
         if (html.classList.contains('dark') || body.classList.contains('dark')) return 'dark';
 
-        const bodyBg = window.getComputedStyle(body).backgroundColor;
-        if (bodyBg.includes('rgb(21, 32, 43)') || bodyBg.includes('#15202b')) return 'dark';
+        // Проверяем CSS переменные
+        const rootStyles = getComputedStyle(html);
+        const bgColor = rootStyles.getPropertyValue('--color-background').trim();
+        if (bgColor === '#101214' || bgColor.includes('rgb(16, 18, 20)')) return 'dark';
 
         return 'light';
     }
 
     function getCurrentTheme() {
         currentTheme = detectTheme();
-        return THEMES[currentTheme];
+        return getSiteTheme();
+    }
+
+    // ========== НАБЛЮДАТЕЛЬ ЗА ИЗМЕНЕНИЕМ ТЕМЫ ==========
+    function observeThemeChanges() {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'data-theme' ||
+                    mutation.attributeName === 'class') {
+                    console.log('🎨 Тема сайта изменилась, обновляем интерфейс');
+                    updateUITheme();
+                }
+            });
+        });
+
+        // Наблюдаем за изменениями в корневом элементе
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme', 'class']
+        });
+
+        // Наблюдаем за изменениями в body
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
+
+    function updateUITheme() {
+        const theme = getCurrentTheme();
+
+        // Обновляем кнопку
+        const btn = document.getElementById('kaai-btn');
+        if (btn) {
+            btn.style.background = theme.buttonPrimary;
+            btn.style.color = theme.buttonPrimaryText;
+        }
+
+        // Обновляем панель
+        const panel = document.getElementById('kaai-panel');
+        if (panel) {
+            panel.style.background = theme.panelBg;
+            panel.style.border = `1px solid ${theme.panelBorder}`;
+            panel.style.boxShadow = `0 10px 40px ${theme.panelShadow}`;
+
+            // Обновляем стили CSS
+            applyThemeStyles();
+
+            // Обновляем вкладки
+            document.querySelectorAll('.kaai-tab').forEach(tab => {
+                const isActive = tab.dataset.tab === activeTab;
+                tab.style.color = isActive ? theme.tabActive : theme.tabInactive;
+                tab.style.borderBottom = isActive ? `3px solid ${theme.tabActive}` : 'none';
+            });
+        }
     }
 
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
     function init() {
-        console.log('🎯 Инициализация с ресайзингом окна кода...');
+        console.log('🎯 Инициализация с ресайзингом окна кода и темой сайта...');
 
         try {
             loadData();
             createUI();
             applyThemeStyles();
             setupEventListeners();
+            observeThemeChanges();
 
             setTimeout(() => {
                 addMessage('ai-chat', 'system',
-                    '🚀KAALITION AI PRO запущен!' +
-                    '' +
-                    '✅Работающие промпты:' +
-                    '' +
-                    '• 🤖Общий AI Чат' +
-                    '' +
-                    '• 🧠Психолог' +
-                    '' +
-                    '• 💻Программист' +
-                    '' +
-                    '✅Адаптивное окно:>' +
-                    '' +
-                    '• Код: 1500x1200 + AI помощник' +
-                    '' +
-                    '✅ Ресайзинг как в Windows'
+                    '🚀 KAALITION AI PRO запущен!' +
+                    '✅ Привязка к теме сайта:' +
+                    '• 🎨 Автоматическое определение темы' +
+                    '• 🔄 Смена при изменении темы сайта' +
+                    '✅ Работающие промпты:' +
+                    '• 🤖 Общий AI Чат' +
+                    '• 🧠 Психолог' +
+                    '• 💻 Программист' +
+                    '✅ Адаптивное окно с ресайзингом' +
+                    '✅ Закрепленный чат со скроллом'
                 );
             }, 100);
 
@@ -455,20 +487,15 @@
 
     function loadData() {
         try {
-            const saved = GM_getValue('kaai_prompts', '{}');
-            customPrompts = JSON.parse(saved);
-
             const savedWidth = GM_getValue('code_editor_width', '60');
             initialLeftWidth = parseInt(savedWidth) || 60;
         } catch (e) {
-            customPrompts = {};
             initialLeftWidth = 60;
         }
     }
 
     function saveData() {
         try {
-            GM_setValue('kaai_prompts', JSON.stringify(customPrompts));
             GM_setValue('code_editor_width', initialLeftWidth.toString());
         } catch (e) {
             console.error('Ошибка сохранения:', e);
@@ -504,6 +531,7 @@
             justify-content: center;
             font-size: 28px;
             color: ${theme.buttonPrimaryText};
+            transition: all 0.3s ease;
         `;
 
         // 2. ОСНОВНАЯ ПАНЕЛЬ
@@ -533,8 +561,6 @@
 
         document.body.appendChild(button);
         document.body.appendChild(panel);
-
-        updatePromptsList();
     }
 
     function generatePanelHTML(theme) {
@@ -583,17 +609,6 @@
                 ">
                     💻 Код
                 </div>
-                <div class="kaai-tab" data-tab="prompts" style="
-                    flex: 1;
-                    padding: 15px;
-                    text-align: center;
-                    cursor: pointer;
-                    color: ${theme.tabInactive};
-                    font-weight: 600;
-                    font-size: 14px;
-                ">
-                    🎯 Промпты
-                </div>
                 <button id="kaai-close" style="
                     background: none;
                     border: none;
@@ -601,6 +616,7 @@
                     cursor: pointer;
                     padding: 0 15px;
                     font-size: 20px;
+                    transition: color 0.2s;
                 ">
                     ×
                 </button>
@@ -618,6 +634,7 @@
                         background: ${theme.chatBg};
                         display: flex;
                         flex-direction: column;
+                        position: relative;
                     "></div>
 
                     <div style="
@@ -638,6 +655,7 @@
                             background: ${theme.inputBg};
                             color: ${theme.inputText};
                             box-sizing: border-box;
+                            transition: border-color 0.2s;
                         "></textarea>
                         <div style="display: flex; gap: 12px; margin-top: 15px;">
                             <button id="ai-send" style="
@@ -650,6 +668,7 @@
                                 cursor: pointer;
                                 font-weight: 600;
                                 font-size: 14px;
+                                transition: opacity 0.2s;
                             ">Отправить</button>
                             <button id="ai-clear" style="
                                 padding: 14px 20px;
@@ -659,6 +678,7 @@
                                 border-radius: 12px;
                                 cursor: pointer;
                                 font-weight: 600;
+                                transition: opacity 0.2s;
                             ">Очистить</button>
                         </div>
                     </div>
@@ -678,6 +698,7 @@
                         background: ${theme.chatBg};
                         display: flex;
                         flex-direction: column;
+                        position: relative;
                     "></div>
 
                     <div style="
@@ -698,6 +719,7 @@
                             background: ${theme.inputBg};
                             color: ${theme.inputText};
                             box-sizing: border-box;
+                            transition: border-color 0.2s;
                         "></textarea>
                         <div style="display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
                             <button class="psych-quick" data-text="Чувствую тревогу" style="
@@ -708,6 +730,7 @@
                                 border-radius: 8px;
                                 cursor: pointer;
                                 font-size: 13px;
+                                transition: opacity 0.2s;
                             ">😰 Тревога</button>
                             <button id="psych-send" style="
                                 flex: 1;
@@ -718,6 +741,7 @@
                                 border-radius: 12px;
                                 cursor: pointer;
                                 font-weight: 600;
+                                transition: opacity 0.2s;
                             ">💬 Обсудить</button>
                         </div>
                     </div>
@@ -737,6 +761,7 @@
                                     font-size: 14px;
                                     cursor: pointer;
                                     min-width: 120px;
+                                    transition: border-color 0.2s;
                                 ">
                                     <option value="javascript">JavaScript</option>
                                     <option value="python">Python</option>
@@ -757,6 +782,7 @@
                                     cursor: pointer;
                                     font-weight: 600;
                                     white-space: nowrap;
+                                    transition: opacity 0.2s;
                                 ">▶ Запустить</button>
                                 <button id="code-debug" style="
                                     padding: 10px 20px;
@@ -767,6 +793,7 @@
                                     cursor: pointer;
                                     font-weight: 600;
                                     white-space: nowrap;
+                                    transition: opacity 0.2s;
                                 ">🐛 Отладить</button>
                                 <button id="code-assistant-toggle" style="
                                     padding: 10px 20px;
@@ -777,6 +804,7 @@
                                     cursor: pointer;
                                     font-weight: 600;
                                     white-space: nowrap;
+                                    transition: opacity 0.2s;
                                 ">🤖 AI Помощник</button>
                             </div>
                             <button id="code-clear" style="
@@ -788,6 +816,7 @@
                                 cursor: pointer;
                                 font-weight: 600;
                                 white-space: nowrap;
+                                transition: opacity 0.2s;
                             ">🧹 Очистить</button>
                         </div>
                     </div>
@@ -819,6 +848,7 @@
                                 outline: none;
                                 line-height: 1.6;
                                 tab-size: 4;
+                                transition: background-color 0.3s, color 0.3s;
                             ">// Пример JavaScript кода с AI помощником
 function helloWorld() {
     console.log("Привет, KAALITION!");
@@ -878,6 +908,7 @@ helloWorld();</textarea>
                                     font-weight: 600;
                                     font-size: 14px;
                                     border-bottom: 3px solid ${theme.tabActive};
+                                    transition: color 0.2s, background-color 0.2s;
                                 ">
                                     📊 Результат
                                 </div>
@@ -889,8 +920,9 @@ helloWorld();</textarea>
                                     color: ${theme.tabInactive};
                                     font-weight: 600;
                                     font-size: 14px;
+                                    transition: color 0.2s, background-color 0.2s;
                                 ">
-                                    🤖 AI Помощник
+                                    🤖 AI Программист
                                 </div>
                             </div>
 
@@ -909,11 +941,13 @@ helloWorld();</textarea>
                                         line-height: 1.5;
                                         white-space: pre-wrap;
                                         word-wrap: break-word;
+                                        transition: background-color 0.3s, color 0.3s;
                                     "></div>
                                 </div>
 
-                                <!-- AI ПОМОЩНИК -->
-                                <div class="code-content" data-code-tab="assistant" style="flex: 1; display: none; flex-direction: column;">
+                                <!-- AI ПРОГРАМИСТ -->
+                                <div class="code-content" data-code-tab="assistant" style="flex: 1; display: none; flex-direction: column; overflow: hidden;">
+                                    <!-- ЗАКРЕПЛЕННЫЙ ЧАТ AI ПРОГРАМИСТА -->
                                     <div id="code-assistant-chat" class="chat-scroll-container" style="
                                         flex: 1;
                                         overflow-y: auto;
@@ -921,11 +955,19 @@ helloWorld();</textarea>
                                         background: ${theme.chatBg};
                                         display: flex;
                                         flex-direction: column;
+                                        position: relative;
+                                        min-height: 0;
                                     "></div>
-                                    <div style="padding: 15px; border-top: 1px solid ${theme.headerBorder}; background: ${theme.panelBg}; flex-shrink: 0;">
-                                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+
+                                    <!-- ФИКСИРОВАННАЯ ПАНЕЛЬ ВВОДА -->
+                                    <div style="
+                                        padding: 15px;
+                                        border-top: 1px solid ${theme.headerBorder};
+                                        background: ${theme.panelBg};
+                                        flex-shrink: 0;
+                                    ">
+                                        <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
                                             <button class="assistant-quick" data-action="explain" style="
-                                                flex: 1;
                                                 padding: 10px;
                                                 background: ${theme.buttonInfo};
                                                 color: white;
@@ -933,9 +975,11 @@ helloWorld();</textarea>
                                                 border-radius: 8px;
                                                 cursor: pointer;
                                                 font-size: 12px;
+                                                transition: opacity 0.2s;
+                                                flex: 1;
+                                                min-width: 120px;
                                             ">📖 Объяснить код</button>
                                             <button class="assistant-quick" data-action="optimize" style="
-                                                flex: 1;
                                                 padding: 10px;
                                                 background: ${theme.buttonSuccess};
                                                 color: white;
@@ -943,9 +987,24 @@ helloWorld();</textarea>
                                                 border-radius: 8px;
                                                 cursor: pointer;
                                                 font-size: 12px;
+                                                transition: opacity 0.2s;
+                                                flex: 1;
+                                                min-width: 120px;
                                             ">⚡ Оптимизировать</button>
+                                            <button class="assistant-quick" data-action="debug" style="
+                                                padding: 10px;
+                                                background: ${theme.buttonWarning};
+                                                color: black;
+                                                border: none;
+                                                border-radius: 8px;
+                                                cursor: pointer;
+                                                font-size: 12px;
+                                                transition: opacity 0.2s;
+                                                flex: 1;
+                                                min-width: 120px;
+                                            ">🐛 Найти ошибки</button>
                                         </div>
-                                        <textarea id="code-assistant-input" placeholder="Спросите AI помощника о коде..." style="
+                                        <textarea id="code-assistant-input" placeholder="Спросите AI программиста о коде..." style="
                                             width: 100%;
                                             padding: 12px;
                                             border: 1px solid ${theme.inputBorder};
@@ -958,86 +1017,34 @@ helloWorld();</textarea>
                                             color: ${theme.inputText};
                                             box-sizing: border-box;
                                             margin-bottom: 10px;
+                                            transition: border-color 0.2s;
                                         "></textarea>
-                                        <button id="code-assistant-send" style="
-                                            width: 100%;
-                                            padding: 12px;
-                                            background: ${theme.buttonPrimary};
-                                            color: white;
-                                            border: none;
-                                            border-radius: 8px;
-                                            cursor: pointer;
-                                            font-weight: 600;
-                                        ">💬 Спросить AI</button>
+                                        <div style="display: flex; gap: 10px;">
+                                            <button id="code-assistant-send" style="
+                                                flex: 1;
+                                                padding: 12px;
+                                                background: ${theme.buttonPrimary};
+                                                color: white;
+                                                border: none;
+                                                border-radius: 8px;
+                                                cursor: pointer;
+                                                font-weight: 600;
+                                                transition: opacity 0.2s;
+                                            ">💬 Спросить AI</button>
+                                            <button id="code-assistant-clear" style="
+                                                padding: 12px 20px;
+                                                background: ${theme.buttonSecondary};
+                                                color: ${theme.buttonSecondaryText};
+                                                border: 1px solid ${theme.buttonSecondaryBorder};
+                                                border-radius: 8px;
+                                                cursor: pointer;
+                                                font-weight: 600;
+                                                transition: opacity 0.2s;
+                                            ">🧹 Очистить</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ВКЛАДКА ПРОМПТЫ -->
-                <div class="kaai-content" data-tab="prompts" style="flex: 1; display: none; flex-direction: column; overflow: hidden;">
-                    <div style="padding: 20px; background: ${theme.headerBg}; border-bottom: 1px solid ${theme.headerBorder}; flex-shrink: 0;">
-                        <div style="font-weight: 600; color: ${theme.tabActive}; margin-bottom: 5px;">🎯 Управление промптами</div>
-                        <div style="font-size: 13px; color: ${theme.tabInactive};">Создавайте свои промпты</div>
-                    </div>
-
-                    <div class="chat-scroll-container" style="
-                        flex: 1;
-                        overflow-y: auto;
-                        padding: 20px;
-                        background: ${theme.chatBg};
-                    ">
-                        <div style="margin-bottom: 20px;">
-                            <input type="text" id="prompt-name" placeholder="Введите название промпта..." style="
-                                width: 100%;
-                                padding: 12px;
-                                border: 1px solid ${theme.inputBorder};
-                                border-radius: 8px;
-                                margin-bottom: 12px;
-                                background: ${theme.inputBg};
-                                color: ${theme.inputText};
-                                box-sizing: border-box;
-                            ">
-                            <textarea id="prompt-editor" placeholder="Опишите роль и поведение AI..." style="
-                                width: 100%;
-                                height: 150px;
-                                padding: 12px;
-                                border: 1px solid ${theme.inputBorder};
-                                border-radius: 8px;
-                                resize: vertical;
-                                font-family: inherit;
-                                font-size: 13px;
-                                background: ${theme.inputBg};
-                                color: ${theme.inputText};
-                                box-sizing: border-box;
-                            ">${GENERAL_PROMPT}</textarea>
-                            <div style="display: flex; gap: 12px; margin-top: 15px;">
-                                <button id="save-prompt" style="
-                                    flex: 1;
-                                    padding: 14px;
-                                    background: ${theme.buttonSuccess};
-                                    color: white;
-                                    border: none;
-                                    border-radius: 12px;
-                                    cursor: pointer;
-                                    font-weight: 600;
-                                ">💾 Сохранить</button>
-                                <button id="use-prompt" style="
-                                    padding: 14px 20px;
-                                    background: ${theme.buttonPrimary};
-                                    color: white;
-                                    border: none;
-                                    border-radius: 12px;
-                                    cursor: pointer;
-                                    font-weight: 600;
-                                ">✨ Использовать</button>
-                            </div>
-                        </div>
-                        <div>
-                            <div style="font-weight: 600; color: ${theme.inputText}; margin-bottom: 15px;">📚 Ваши промпты:</div>
-                            <div id="prompts-list" style="display: grid; gap: 10px;"></div>
                         </div>
                     </div>
                 </div>
@@ -1054,7 +1061,7 @@ helloWorld();</textarea>
                 text-align: center;
                 flex-shrink: 0;
             ">
-                KAALITION AI • V4 • NEWS OFFICIAL • Ресайзинг • ПРИ ПОДДЕРЖКИ #КААЛИЦИЯ
+                KAALITION AI • V4.1  • NEWS OFFICIAL •  ПРИ ПОДДЕРЖКИ #КААЛИЦИЯ
             </div>
         `;
     }
@@ -1134,12 +1141,12 @@ helloWorld();</textarea>
         });
 
         resizer.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = THEMES[currentTheme].resizerHover;
+            this.style.backgroundColor = getSiteTheme().resizerHover;
         });
 
         resizer.addEventListener('mouseleave', function() {
             if (!resizerActive) {
-                this.style.backgroundColor = THEMES[currentTheme].resizerBg;
+                this.style.backgroundColor = getSiteTheme().resizerBg;
             }
         });
     }
@@ -1151,13 +1158,18 @@ helloWorld();</textarea>
         }
     }
 
-    // ========== СТИЛИ ==========
+    // ========== СТИЛИ С ПРИВЯЗКОЙ К ТЕМЕ САЙТА ==========
     function applyThemeStyles() {
         const theme = getCurrentTheme();
 
         GM_addStyle(`
             #kaai-btn:hover {
                 transform: scale(1.1);
+                opacity: 0.9;
+            }
+
+            #kaai-close:hover {
+                color: ${theme.tabActive};
             }
 
             .kaai-header {
@@ -1166,12 +1178,36 @@ helloWorld();</textarea>
                 z-index: 100 !important;
             }
 
+            .kaai-tab {
+                transition: color 0.2s, background-color 0.2s !important;
+            }
+
+            .kaai-tab:hover {
+                background-color: ${theme.tabHover} !important;
+            }
+
+            /* СТИЛИ ДЛЯ ЗАКРЕПЛЕННОГО ЧАТА */
             .chat-scroll-container {
                 overflow-y: auto !important;
                 display: flex !important;
                 flex-direction: column !important;
                 flex: 1 !important;
                 min-height: 0 !important;
+                position: relative !important;
+            }
+
+            /* Фиксируем высоту чата */
+            .kaai-content[data-tab="ai"] .chat-scroll-container,
+            .kaai-content[data-tab="psych"] .chat-scroll-container,
+            .code-content[data-code-tab="assistant"] .chat-scroll-container {
+                flex: 1 !important;
+                overflow-y: auto !important;
+                max-height: calc(100% - 70px) !important;
+            }
+
+            /* Обеспечиваем прокрутку */
+            .chat-scroll-container > div:first-child {
+                margin-top: auto !important;
             }
 
             .chat-message {
@@ -1187,6 +1223,7 @@ helloWorld();</textarea>
                 opacity: 1 !important;
                 animation: none !important;
                 flex-shrink: 0 !important;
+                transition: background-color 0.3s, border-color 0.3s, color 0.3s !important;
             }
 
             .user-message {
@@ -1228,13 +1265,46 @@ helloWorld();</textarea>
             }
 
             .code-tab {
-                transition: background-color 0.2s;
+                transition: color 0.2s, background-color 0.2s !important;
             }
 
             .code-tab:hover {
-                background-color: ${theme.tabHover};
+                background-color: ${theme.tabHover} !important;
+                color: ${theme.tabActive} !important;
             }
 
+            /* Стили для редактора кода */
+            .kaai-content[data-tab="code"] #code-editor,
+            #code-output {
+                font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+                transition: background-color 0.3s, color 0.3s !important;
+            }
+
+            .kaai-content[data-tab="code"] #code-editor {
+                font-size: 15px !important;
+                line-height: 1.6 !important;
+                tab-size: 4 !important;
+            }
+
+            #code-output {
+                font-size: 14px !important;
+                line-height: 1.5 !important;
+                white-space: pre-wrap !important;
+                word-wrap: break-word !important;
+            }
+
+            /* Стили для кода внутри сообщений */
+            .chat-message code {
+                background: ${theme.codeBg} !important;
+                color: ${theme.codeText} !important;
+                padding: 2px 6px !important;
+                border-radius: 4px !important;
+                font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+                font-size: 0.9em !important;
+                border: 1px solid ${theme.messageAiBorder} !important;
+            }
+
+            /* Стили для скроллбара */
             .chat-scroll-container::-webkit-scrollbar {
                 width: 12px !important;
                 height: 12px !important;
@@ -1258,34 +1328,136 @@ helloWorld();</textarea>
                 cursor: pointer !important;
             }
 
+            /* Firefox */
             .chat-scroll-container {
                 scrollbar-width: auto !important;
                 scrollbar-color: ${theme.scrollbarThumb} ${theme.scrollbarTrack} !important;
             }
 
+            /* Стили для кнопок */
             button {
-                transition: opacity 0.2s;
+                transition: opacity 0.2s !important;
             }
 
             button:hover:not(:disabled) {
-                opacity: 0.9;
+                opacity: 0.9 !important;
+            }
+
+            /* Стили для полей ввода */
+            textarea, input, select {
+                transition: border-color 0.2s !important;
             }
 
             textarea:focus, input:focus, select:focus {
-                outline: none;
+                outline: none !important;
                 border-color: ${theme.tabActive} !important;
+                box-shadow: 0 0 0 2px rgba(29, 155, 240, 0.1) !important;
             }
 
             ::placeholder {
                 color: ${theme.inputPlaceholder} !important;
-                opacity: 0.8;
+                opacity: 0.8 !important;
+            }
+
+            /* Анимация появления сообщений */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .chat-message {
+                animation: fadeIn 0.3s ease-out !important;
+            }
+
+            /* Анимация печатания */
+            @keyframes typing {
+                0% { opacity: 0.3; }
+                50% { opacity: 1; }
+                100% { opacity: 0.3; }
+            }
+
+            .typing-indicator {
+                animation: typing 1.5s infinite !important;
+            }
+
+            /* Адаптивность */
+            @media (max-width: 1600px) {
+                .kaai-content[data-tab="code"] #code-editor {
+                    font-size: 14px !important;
+                }
+
+                #code-output {
+                    font-size: 13px !important;
+                }
+
+                .assistant-quick {
+                    min-width: 100px !important;
+                    font-size: 11px !important;
+                    padding: 8px !important;
+                }
+            }
+
+            @media (max-width: 1200px) {
+                #code-container {
+                    flex-direction: column !important;
+                }
+
+                #code-editor-container,
+                #code-right-panel {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    flex: none !important;
+                    height: 50vh !important;
+                }
+
+                .code-resizer {
+                    width: 100% !important;
+                    height: 5px !important;
+                    cursor: row-resize !important;
+                }
+
+                .assistant-quick {
+                    flex: 1 !important;
+                    min-width: 100px !important;
+                }
+            }
+
+            @media (max-width: 600px) {
+                #kaai-panel {
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    max-height: 100vh !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    border-radius: 0 !important;
+                }
+
+                .kaai-tab {
+                    padding: 12px 8px !important;
+                    font-size: 12px !important;
+                }
+
+                .chat-message {
+                    max-width: 95% !important;
+                }
+
+                .assistant-quick {
+                    flex: 1 1 100% !important;
+                    margin-bottom: 5px !important;
+                }
             }
         `);
     }
 
     // ========== ОБРАБОТЧИКИ СОБЫТИЙ ==========
     function setupEventListeners() {
-        console.log('🔗 Настройка обработчиков...');
+        console.log('🔗 Настройка обработчиков с привязкой к теме...');
 
         const btn = document.getElementById('kaai-btn');
         const panel = document.getElementById('kaai-panel');
@@ -1295,7 +1467,7 @@ helloWorld();</textarea>
         btn.addEventListener('click', togglePanel);
         closeBtn.addEventListener('click', closePanel);
 
-        // 2. Основные вкладки
+        // 2. Основные вкладки (теперь 3 вкладки)
         document.querySelectorAll('.kaai-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 const tabName = this.dataset.tab;
@@ -1347,9 +1519,10 @@ helloWorld();</textarea>
         document.getElementById('code-debug')?.addEventListener('click', debugCode);
         document.getElementById('code-clear')?.addEventListener('click', clearCode);
 
-        // 7. AI ПОМОЩНИК ДЛЯ КОДА
+        // 7. AI ПРОГРАМИСТ
         document.getElementById('code-assistant-toggle')?.addEventListener('click', toggleCodeAssistant);
         document.getElementById('code-assistant-send')?.addEventListener('click', sendCodeAssistantMessage);
+        document.getElementById('code-assistant-clear')?.addEventListener('click', clearCodeAssistantChat);
 
         const assistantInput = document.getElementById('code-assistant-input');
         assistantInput?.addEventListener('keypress', function(e) {
@@ -1366,11 +1539,7 @@ helloWorld();</textarea>
             });
         });
 
-        // 8. ПРОМПТЫ
-        document.getElementById('save-prompt')?.addEventListener('click', savePrompt);
-        document.getElementById('use-prompt')?.addEventListener('click', usePrompt);
-
-        // 9. Горячие клавиши
+        // 8. Горячие клавиши
         document.addEventListener('keydown', function(e) {
             if (e.altKey && e.key === 'a') {
                 e.preventDefault();
@@ -1381,21 +1550,21 @@ helloWorld();</textarea>
             }
         });
 
-        // 10. Клик вне панели
+        // 9. Клик вне панели
         document.addEventListener('click', function(e) {
             if (isOpen && !panel.contains(e.target) && e.target !== btn) {
                 closePanel();
             }
         });
 
-        // 11. ПРОКРУТКА ЧАТА
+        // 10. АВТОПРОКРУТКА ЧАТА
         const chatObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                     const container = mutation.target;
                     setTimeout(() => {
                         container.scrollTop = container.scrollHeight;
-                    }, 10);
+                    }, 50);
                 }
             });
         });
@@ -1438,13 +1607,14 @@ helloWorld();</textarea>
             const assistantChat = document.getElementById('code-assistant-chat');
             if (assistantChat && assistantChat.children.length === 0) {
                 addMessage('code-assistant-chat', 'system',
-                    '🤖 <b>AI Помощник для кода</b><br><br>' +
+                    '🤖 <b>AI Программист</b><br><br>' +
                     'Я помогу вам с программированием:<br>' +
                     '• 📖 Объясню любой код<br>' +
                     '• 🐛 Найду и исправлю ошибки<br>' +
                     '• ⚡ Предложу оптимизации<br>' +
                     '• 💡 Дам советы по улучшению<br>' +
-                    '• 📚 Объясню концепции<br><br>' +
+                    '• 📚 Объясню концепции<br>' +
+                    '• 🔍 Помогу с отладкой<br><br>' +
                     'Просто напишите вопрос или используйте быстрые кнопки!'
                 );
             }
@@ -1455,7 +1625,7 @@ helloWorld();</textarea>
         }
     }
 
-    // ========== AI ПОМОЩНИК ДЛЯ КОДА ==========
+    // ========== AI ПРОГРАМИСТ ==========
     async function sendCodeAssistantMessage() {
         if (isProcessing) return;
 
@@ -1491,6 +1661,24 @@ helloWorld();</textarea>
         }
     }
 
+    function clearCodeAssistantChat() {
+        const assistantChat = document.getElementById('code-assistant-chat');
+        if (assistantChat) {
+            assistantChat.innerHTML = '';
+            addMessage('code-assistant-chat', 'system',
+                '🤖 <b>AI Программист</b><br><br>' +
+                'Я помогу вам с программированием:<br>' +
+                '• 📖 Объясню любой код<br>' +
+                '• 🐛 Найду и исправлю ошибки<br>' +
+                '• ⚡ Предложу оптимизации<br>' +
+                '• 💡 Дам советы по улучшению<br>' +
+                '• 📚 Объясню концепции<br>' +
+                '• 🔍 Помогу с отладкой<br><br>' +
+                'Просто напишите вопрос или используйте быстрые кнопки!'
+            );
+        }
+    }
+
     function handleAssistantQuickAction(action) {
         const code = document.getElementById('code-editor').value;
         const language = document.getElementById('code-language').value;
@@ -1508,6 +1696,9 @@ helloWorld();</textarea>
                 break;
             case 'optimize':
                 question = `Как можно оптимизировать этот код на ${language}? Предложи улучшения.`;
+                break;
+            case 'debug':
+                question = `Найди ошибки в этом коде на ${language} и предложи исправления:`;
                 break;
         }
 
@@ -1614,12 +1805,6 @@ helloWorld();</textarea>
         // Устанавливаем правильный промпт для каждой вкладки
         if (tabName === 'psych') {
             currentPrompt = PSYCH_PROMPT;
-        } else if (tabName === 'code') {
-            // Для вкладки "Код" используется отдельный промпт CODE_ASSISTANT_PROMPT
-            // Но currentPrompt оставляем как GENERAL_PROMPT для основного AI чата
-            if (activeTab === 'ai') {
-                currentPrompt = GENERAL_PROMPT;
-            }
         } else if (tabName === 'ai') {
             currentPrompt = GENERAL_PROMPT;
         }
@@ -1643,9 +1828,13 @@ helloWorld();</textarea>
         messageDiv.innerHTML = formattedText;
         container.appendChild(messageDiv);
 
+        // Автопрокрутка к новому сообщению
         setTimeout(() => {
             container.scrollTop = container.scrollHeight;
-        }, 10);
+        }, 50);
+
+        // Возвращаем сообщение для возможного удаления (для индикатора печати)
+        return messageDiv;
     }
 
     function showTyping(containerId) {
@@ -1653,14 +1842,15 @@ helloWorld();</textarea>
         if (!container) return null;
 
         const indicator = document.createElement('div');
-        indicator.className = 'chat-message ai-message';
-        indicator.innerHTML = '🤖 Печатает...';
+        indicator.className = 'chat-message ai-message typing-indicator';
+        indicator.innerHTML = '🤖 Печатает<span class="typing-dots">...</span>';
 
         container.appendChild(indicator);
 
+        // Автопрокрутка к индикатору
         setTimeout(() => {
             container.scrollTop = container.scrollHeight;
-        }, 10);
+        }, 50);
 
         return indicator;
     }
@@ -1798,199 +1988,6 @@ helloWorld();</textarea>
         if (assistantChat) {
             assistantChat.innerHTML = '';
         }
-    }
-
-    // ========== ПРОМПТЫ ==========
-    function updatePromptsList() {
-        const list = document.getElementById('prompts-list');
-        if (!list) return;
-
-        const theme = getCurrentTheme();
-        list.innerHTML = '';
-
-        // ТРИ ОСНОВНЫХ ПРОМПТА
-        const mainPrompts = [
-            {
-                name: "🤖 Общий AI Чат",
-                prompt: GENERAL_PROMPT,
-                type: "ai"
-            },
-            {
-                name: "🧠 Психолог",
-                prompt: PSYCH_PROMPT,
-                type: "psych"
-            },
-            {
-                name: "💻 Программист",
-                prompt: CODE_ASSISTANT_PROMPT,
-                type: "code"
-            }
-        ];
-
-        // Добавляем основные промпты
-        mainPrompts.forEach(item => {
-            const promptItem = document.createElement('div');
-            promptItem.style.cssText = `
-                padding: 12px;
-                background: ${theme.messageAiBg};
-                border: 1px solid ${theme.messageAiBorder};
-                border-radius: 8px;
-            `;
-            promptItem.innerHTML = `
-                <div style="font-weight: 600; color: ${theme.tabActive}; margin-bottom: 5px;">${item.name}</div>
-                <div style="font-size: 12px; color: ${theme.tabInactive}; margin-bottom: 8px;">
-                    ${item.prompt.substring(0, 80)}...
-                </div>
-                <button class="load-main-prompt" data-prompt="${encodeURIComponent(item.prompt)}" data-type="${item.type}" style="
-                    width: 100%;
-                    padding: 8px 12px;
-                    background: ${theme.buttonPrimary};
-                    color: ${theme.buttonPrimaryText};
-                    border: none;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 12px;
-                ">
-                    📋 Использовать
-                </button>
-            `;
-            list.appendChild(promptItem);
-        });
-
-        // Разделитель
-        const separator = document.createElement('div');
-        separator.style.cssText = `
-            text-align: center;
-            padding: 10px;
-            color: ${theme.tabInactive};
-            font-size: 12px;
-            border-top: 1px solid ${theme.panelBorder};
-            margin-top: 10px;
-        `;
-        separator.innerHTML = '━━━━━ Пользовательские промпты ━━━━━';
-        list.appendChild(separator);
-
-        // Кастомные промпты
-        Object.entries(customPrompts).forEach(([name, prompt]) => {
-            const item = document.createElement('div');
-            item.style.cssText = `
-                padding: 12px;
-                background: ${theme.messageAiBg};
-                border: 1px solid ${theme.messageAiBorder};
-                border-radius: 8px;
-            `;
-            item.innerHTML = `
-                <div style="font-weight: 600; color: ${theme.inputText}; margin-bottom: 5px;">${name}</div>
-                <div style="font-size: 12px; color: ${theme.tabInactive}; margin-bottom: 8px;">
-                    ${prompt.substring(0, 60)}...
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="load-prompt" data-prompt="${encodeURIComponent(prompt)}" style="
-                        flex: 1;
-                        padding: 8px;
-                        background: ${theme.buttonPrimary};
-                        color: ${theme.buttonPrimaryText};
-                        border: none;
-                        border-radius: 6px;
-                        cursor: pointer;
-                        font-size: 12px;
-                    ">
-                        📋 Загрузить
-                    </button>
-                    <button class="delete-prompt" data-name="${name}" style="
-                        padding: 8px 12px;
-                        background: ${theme.buttonDanger};
-                        color: white;
-                        border: none;
-                        border-radius: 6px;
-                        cursor: pointer;
-                        font-size: 12px;
-                    ">
-                        🗑️ Удалить
-                    </button>
-                </div>
-            `;
-            list.appendChild(item);
-        });
-
-        // Обработчики
-        setTimeout(() => {
-            // Основные промпты
-            document.querySelectorAll('.load-main-prompt').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const prompt = decodeURIComponent(this.getAttribute('data-prompt'));
-                    const type = this.getAttribute('data-type');
-
-                    document.getElementById('prompt-editor').value = prompt;
-
-                    // Автоматически переключаемся на нужную вкладку
-                    if (type === 'ai') {
-                        switchTab('ai');
-                        currentPrompt = prompt;
-                        alert('✅ Промпт "Общий AI Чат" установлен!');
-                    } else if (type === 'psych') {
-                        switchTab('psych');
-                        currentPrompt = prompt;
-                        alert('✅ Промпт "Психолог" установлен!');
-                    } else if (type === 'code') {
-                        // Для программиста используем CODE_ASSISTANT_PROMPT
-                        alert('✅ Промпт "Программист" используется в AI помощнике для кода!');
-                    }
-                });
-            });
-
-            // Пользовательские промпты
-            document.querySelectorAll('.load-prompt').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const prompt = decodeURIComponent(this.getAttribute('data-prompt'));
-                    document.getElementById('prompt-editor').value = prompt;
-                });
-            });
-
-            document.querySelectorAll('.delete-prompt').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const name = this.getAttribute('data-name');
-                    if (confirm(`Удалить промпт "${name}"?`)) {
-                        delete customPrompts[name];
-                        saveData();
-                        updatePromptsList();
-                    }
-                });
-            });
-        }, 100);
-    }
-
-    function savePrompt() {
-        const nameInput = document.getElementById('prompt-name');
-        const editor = document.getElementById('prompt-editor');
-
-        const name = nameInput.value.trim();
-        const content = editor.value.trim();
-
-        if (!name) {
-            alert('Введите название промпта');
-            return;
-        }
-
-        if (!content) {
-            alert('Введите содержание промпта');
-            return;
-        }
-
-        customPrompts[name] = content;
-        saveData();
-        updatePromptsList();
-
-        nameInput.value = '';
-        alert('✅ Промпт сохранен!');
-    }
-
-    function usePrompt() {
-        const editor = document.getElementById('prompt-editor');
-        currentPrompt = editor.value.trim();
-
-        switchTab('ai');
-        alert('✅ Пользовательский промпт установлен!');
     }
 
     // ========== ВСПОМОГАТЕЛЬНЫЕ ==========
