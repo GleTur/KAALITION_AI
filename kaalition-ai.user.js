@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         KAALITION AI
 // @namespace    https://github.com/GleTur/KAALITION_AI
-// @version      V4
+// @version      V4.1
 // @description  МАСШТАБНОЕ ОБНОВЛЕНИЕ
 // @author       News Official при поддержки #КААЛИЦИЯ
 // @supportURL   https://t.me/news_itd
