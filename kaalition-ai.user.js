@@ -6,8 +6,8 @@
 // @author       News Official при поддержки #КААЛИЦИЯ
 // @supportURL   https://t.me/news_itd
 // @match        https://xn--d1ah4a.com/*
-// @updateURL    https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.txt
-// @downloadURL  https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.txt
+// @updateURL    https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
+// @downloadURL  https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
 // @supportURL   https://github.com/GleTur/KAALITION_AI/issues
 // @homepageURL  https://github.com/GleTur/KAALITION_AI
 // @grant        GM_xmlhttpRequest
