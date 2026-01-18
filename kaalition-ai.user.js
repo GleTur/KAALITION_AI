@@ -6,8 +6,8 @@
 // @author       News Official при поддержки #КААЛИЦИЯ
 // @supportURL   https://t.me/news_itd
 // @match        https://xn--d1ah4a.com/*
-// @updateURL    https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
-// @downloadURL  https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.js
+// @updateURL    https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.V5.js
+// @downloadURL  https://github.com/GleTur/KAALITION_AI/raw/refs/heads/main/kaalition-ai.user.V5.js
 // @supportURL   https://github.com/GleTur/KAALITION_AI/issues
 // @homepageURL  https://github.com/GleTur/KAALITION_AI
 // @grant        GM_xmlhttpRequest
@@ -22,6 +22,91 @@
 
     console.log('🚀 KAALITION AI PRO 4.3 - Premium Design Edition with Plugins');
 
+    // ========== СОВМЕСТИМОСТЬ С API ==========
+    // Создаем совместимые обертки для GM_ функций
+    const GM = {
+        // Совместимость с разными менеджерами скриптов
+        getValue: function(key, defaultValue) {
+            try {
+                if (typeof GM_getValue !== 'undefined') {
+                    return GM_getValue(key, defaultValue);
+                } else if (typeof GM_getValueAsync !== 'undefined') {
+                    return GM_getValueAsync(key, defaultValue);
+                } else if (typeof gm_getValue !== 'undefined') {
+                    return gm_getValue(key, defaultValue);
+                } else {
+                    // Fallback к localStorage
+                    const item = localStorage.getItem(`kaalition_ai_${key}`);
+                    return item ? JSON.parse(item) : defaultValue;
+                }
+            } catch (e) {
+                console.warn(`Ошибка при получении значения ${key}:`, e);
+                return defaultValue;
+            }
+        },
+
+        setValue: function(key, value) {
+            try {
+                if (typeof GM_setValue !== 'undefined') {
+                    return GM_setValue(key, value);
+                } else if (typeof GM_setValueAsync !== 'undefined') {
+                    return GM_setValueAsync(key, value);
+                } else if (typeof gm_setValue !== 'undefined') {
+                    return gm_setValue(key, value);
+                } else {
+                    // Fallback к localStorage
+                    localStorage.setItem(`kaalition_ai_${key}`, JSON.stringify(value));
+                    return true;
+                }
+            } catch (e) {
+                console.warn(`Ошибка при сохранении значения ${key}:`, e);
+                return false;
+            }
+        },
+
+        xmlhttpRequest: function(options) {
+            if (typeof GM_xmlhttpRequest !== 'undefined') {
+                return GM_xmlhttpRequest(options);
+            } else if (typeof GM_xmlhttpRequestAsync !== 'undefined') {
+                return GM_xmlhttpRequestAsync(options);
+            } else {
+                // Fallback к fetch API
+                return new Promise((resolve, reject) => {
+                    fetch(options.url, {
+                        method: options.method || 'GET',
+                        headers: options.headers,
+                        body: options.data
+                    })
+                    .then(response => {
+                        resolve({
+                            status: response.status,
+                            responseText: response.text(),
+                            response: response
+                        });
+                    })
+                    .catch(reject);
+                });
+            }
+        },
+
+        addStyle: function(css) {
+            try {
+                if (typeof GM_addStyle !== 'undefined') {
+                    return GM_addStyle(css);
+                } else {
+                    // Fallback к созданию style элемента
+                    const style = document.createElement('style');
+                    style.textContent = css;
+                    document.head.appendChild(style);
+                    return style;
+                }
+            } catch (e) {
+                console.warn('Ошибка при добавлении стилей:', e);
+                return null;
+            }
+        }
+    };
+
     // ========== КОНФИГ ==========
     const CONFIG = {
         API_URL: 'https://api.groq.com/openai/v1/chat/completions',
@@ -33,7 +118,7 @@
     // ========== СИСТЕМА ПЛАГИНОВ ==========
     const PLUGIN_SYSTEM = {
         plugins: [],
-        installedPlugins: GM_getValue('installed_plugins', []),
+        installedPlugins: GM.getValue('installed_plugins', []),
 
         // Премиум плагины от KAALITION
         premiumPlugins: [
@@ -88,7 +173,7 @@
                 code: `function generateCode(language, description) {
     const templates = {
         javascript: \`// Генерация кода JavaScript\\nfunction solution() {\\n    // \${description}\\n    console.log("Решение реализовано");\\n}\\n\`,
-        python: \`# Генерация кода Python\\ndef solution():\\n    # \${description}\\n    print("Решение реализовано")\\n\`,
+        python: \`# Генерация кода Python\\ndef solution():\\n    // \${description}\\n    print("Решение реализовано")\\n\`,
         html: \`<!-- Генерация HTML кода -->\\n<div class="container">\\n    <!-- \${description} -->\\n    <p>Контент</p>\\n</div>\`
     };
 
@@ -132,7 +217,7 @@
         ],
 
         // Установленные пользовательские плагины
-        customPlugins: GM_getValue('custom_plugins', []),
+        customPlugins: GM.getValue('custom_plugins', []),
 
         // Инициализация системы плагинов
         init: function() {
@@ -185,7 +270,7 @@
                 };
 
                 this.customPlugins.push(newPlugin);
-                GM_setValue('custom_plugins', this.customPlugins);
+                GM.setValue('custom_plugins', this.customPlugins);
                 this.registerPlugin(newPlugin);
 
                 return { success: true, plugin: newPlugin };
@@ -198,7 +283,7 @@
         uninstallPlugin: function(pluginId) {
             this.plugins = this.plugins.filter(p => p.id !== pluginId);
             this.customPlugins = this.customPlugins.filter(p => p.id !== pluginId);
-            GM_setValue('custom_plugins', this.customPlugins);
+            GM.setValue('custom_plugins', this.customPlugins);
         },
 
         // Выполнение плагина
@@ -228,7 +313,7 @@
     // ========== ФУНКЦИЯ СОЗДАНИЯ ПОСТА ==========
     function create_post(text, imageSrc) {
         // Добавляем подпись KAALITION AI в конец поста
-        const postText = text + "\n\n---\n\n✨ **This Post Created By KAALITION AI | #КААЛИЦИЯ | V5*";
+        const postText = text + "\n\n---\n\n✨ **This Post Created By KAALITION AI | #КААЛИЦИЯ | V5**";
 
         // Возвращаем всю цепочку, чтобы вызывающий код мог знать о результате
         return fetch('/api/v1/auth/refresh', { method: 'POST' })
@@ -395,18 +480,7 @@
    - Язык: русский/английский (по выбору)
    - Создано: для сообщества ИТД
 
-Пример 4 (серьезный):
-Пользователь: "Как защитить аккаунт?"
-Ты: "**Безопасность прежде всего!** 🔒
-• Используй сложный пароль
-• Включи двухфакторку
-• Не переходи по подозрительным ссылкам
-• Регулярно обновляй приложение
-
-Если что-то подозрительное - сразу в поддержку ⚡"
-
-Запомни: ты не просто AI, ты часть КААЛИЦИИ. Ты помогаешь пользователям ИТД, развлекаешь их и делаешь их опыт лучше. Будь полезным, будь крутым, будь KAALITION! 🤝
-22. сделай ощушение будто человек общается с человеком
+22. сделай ощущение будто человек общается с человеком
 1. Если тебя спрашивают о мессенджере ИТД - скажи, что его создал Ilya Nowkie, а программировал Димончик Кодинг
 2. Ты - KAALITION AI (КААЛИЦИЯ ИИ)
 3. Создатели KAALITION AI - News Official (@newsoffc) и Дым (@dmitrii_gr)
@@ -497,7 +571,7 @@
 чзх / чзнх — что за хрень? (более грубо — что за...).
 афаик / ёлки-палки — эвфемизм для выражения эмоций.
 все сленг закончился
-17. сделай текст обьемнее и красивее
+17. сделай текст объёмнее и красивее
 18. используй не так часто сленг
 19. адаптируйся под пользователя (тип общается с матом общайся тоже с матом, тип общается лампово комфортно общайся лампово и комфортно и др.)
 20. не используй слова по типу этих aquí
@@ -521,7 +595,7 @@
 НЕ ставь диагнозы. Ты не врач-психиатр. Избегай любых медицинских или клинических формулировок (например, "у тебя депрессия" или "это паническая атака").
 НЕ назначай лекарства, добавки или конкретные лечебные процедуры.
 Кризисная ситуация — приоритет №1. Если пользователь выражает:
-Явные суицидальные намеренты ("я хочу убить себя", "я не хочу больше жить").
+Явные суицидальные намерения ("я хочу убить себя", "я не хочу больше жить").
 Мысли о причинении вреда себе или другим.
 Сообщает о жестоком обращении или насилии.
 Твой ответ должен быть немедленным и чётким:
@@ -530,7 +604,7 @@
 Методы и подход (используй гибко):
 Когнитивное переформулирование: Мягко помогай увидеть ситуацию под другим углом. "А как ещё можно было бы посмотреть на эти события?"
 Поиск ресурсов: Спрашивай: "Что или кто обычно помогает тебе справляться в трудные моменты?", "Что приносило тебе облегчение в прошлом?"
-Конкретизация: Помоги сформулировать проблема более ясно. "Когда именно ты чувствуешь эту тревогу? Можешь описать последний случай?"
+Конкретизация: Помоги сформулировать проблему более ясно. "Когда именно ты чувствуешь эту тревогу? Можешь описать последний случай?"
 Фокус на действии: В конце беседы можно спросить: "Какой один маленький шаг ты мог бы сделать до нашего следующего разговора, чтобы стало чуть легче?"
 Начало диалог...`;
 
@@ -578,77 +652,12 @@
 5. **Альтернативы** - другие возможные решения
 6. **Тестирование** - как протестировать
 
-**ПРИМЕР ОТВЕТА (для задачи сортировки):**
-
-"**Задача:** Отсортировать массив чисел по возрастанию.
-
-**Анализ:** Нужна эффективная сортировка для средних массивов.
-
-**Подход:** Используем быструю сортировку (quicksort) как баланс между простотой и производительностью.
-
-**Код:**
-\`\`\`javascript
-function quickSort(arr) {
-    if (arr.length <= 1) return arr;
-
-    const pivot = arr[Math.floor(arr.length / 2)];
-    const left = [];
-    const right = [];
-    const equal = [];
-
-    for (let element of arr) {
-        if (element < pivot) left.push(element);
-        else if (element > pivot) right.push(element);
-        else equal.push(element);
-    }
-
-    return [...quickSort(left), ...equal, ...quickSort(right)];
-}
-
-// Пример использования
-const numbers = [64, 34, 25, 12, 22, 11, 90];
-console.log(quickSort(numbers)); // [11, 12, 22, 25, 34, 64, 90]
-\`\`\`
-
-**Объяснение:**
-- Сложность: O(n log n) в среднем случае
-- Память: O(n) из-за рекурсии
-- Выбрал этот подход за баланс скорости и читаемости
-
-**Альтернативы:**
-1. Merge sort - стабильная O(n log n), но требует O(n) памяти
-2. Heap sort - O(n log n) на месте, но сложнее для понимания
-3. Встроенная sort() - проще, но меньше контроля
-
-**Тестирование:**
-- Пустой массив: []
-- Один элемент: [5]
-- Уже отсортированный: [1, 2, 3]
-- Обратный порядок: [3, 2, 1]
-- Дубликаты: [2, 2, 1, 1]"
-
 **ПРИНЦИПЫ РЕШЕНИЯ ЗАДАЧ:**
-
 1. **СНАЧАЛА РАБОТАЮЩИЙ КОД, ПОТОМ ОПТИМИЗАЦИЯ**
 2. **ПИШИ КОД ДЛЯ ЛЮДЕЙ, А НЕ ДЛЯ КОМПИЛЯТОРА**
 3. **ОБРАБАТЫВАЙ ОШИБКИ И КРАЙНИЕ СЛУЧАИ**
 4. **ДОКУМЕНТИРУЙ СЛОЖНУЮ ЛОГИКУ**
 5. **СЛЕДУЙ СТАНДАРТАМ ЯЗЫКА И КОММУНИТИ**
-
-**БЫСТРЫЕ СОВЕТЫ:**
-- Всегда проверяй входные данные
-- Используй const/let вместо var
-- Избегай глобальных переменных
-- Пиши чистые функции, когда возможно
-- Используй деструктуризацию для удобства
-- Применяй async/await вместо callbacks
-
-**ДЛЯ ОПТИМИЗАЦИИ:**
-1. Измеряй производительность
-2. Ищи bottlenecks
-3. Кэшируй результаты тяжёлых вычислений
-4. Используй правильные структуры данных
-5. Минимизируй DOM-операции (для фронтенда)
 
 17. сделай текст объёмнее и красивее
 18. используй не так часто сленг
@@ -889,7 +898,7 @@ console.log(quickSort(numbers)); // [11, 12, 22, 25, 34, 64, 90]
 
     function loadData() {
         try {
-            const savedWidth = GM_getValue('code_editor_width', '60');
+            const savedWidth = GM.getValue('code_editor_width', '60');
             initialLeftWidth = parseInt(savedWidth) || 60;
         } catch (e) {
             initialLeftWidth = 60;
@@ -898,7 +907,7 @@ console.log(quickSort(numbers)); // [11, 12, 22, 25, 34, 64, 90]
 
     function saveData() {
         try {
-            GM_setValue('code_editor_width', initialLeftWidth.toString());
+            GM.setValue('code_editor_width', initialLeftWidth.toString());
         } catch (e) {
             console.error('Ошибка сохранения:', e);
         }
@@ -927,7 +936,7 @@ console.log(quickSort(numbers)); // [11, 12, 22, 25, 34, 64, 90]
             border: none;
             cursor: pointer;
             box-shadow: ${theme.glowEffect}, 0 10px 30px rgba(0, 0, 0, 0.3);
-            z-index: 10000;
+            z-index: 100000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -951,7 +960,7 @@ console.log(quickSort(numbers)); // [11, 12, 22, 25, 34, 64, 90]
             background: ${theme.panelBg};
             border-radius: 24px;
             box-shadow: ${theme.panelShadow};
-            z-index: 9999;
+            z-index: 99999;
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -1429,7 +1438,7 @@ console.log(quickSort(numbers)); // [11, 12, 22, 25, 34, 64, 90]
                                 font-weight: 600;
                             ">
                                 <span>📝 Редактор кода:</span>
-                                <span id="code-size-info" style="color: ${theme.tabActive}; font-weight: bold;">${WINDOW_SIZES.code.width}×${WINDOW_SIZES.code.height}</span>
+                                <span id="code-size-info" style="color: ${theme.tabActive}; font-weight: bold;">${WINDOW_SIZES.code.width}×${WINDOW_SIZES.code.height} (${initialLeftWidth}%/${100 - initialLeftWidth}%)</span>
                             </div>
                             <textarea id="code-editor" placeholder="// Введите код здесь..." style="
                                 flex: 1;
@@ -1928,7 +1937,7 @@ function myPlugin(input) {
                                     border: 1px solid rgba(66, 133, 244, 0.1);
                                     cursor: pointer;
                                     transition: all 0.3s ease;
-                                " onclick="loadExamplePlugin('meme')">
+                                " onclick="window.loadExamplePlugin('meme')">
                                     <div style="font-weight: 700; color: ${theme.tabActive}; margin-bottom: 8px; font-size: 15px;">😂 Генератор Мемов</div>
                                     <div style="color: ${theme.tabInactive}; font-size: 13px; margin-bottom: 10px;">Создаёт мемы по теме</div>
                                     <pre style="
@@ -1952,7 +1961,7 @@ function myPlugin(input) {
                                     border: 1px solid rgba(66, 133, 244, 0.1);
                                     cursor: pointer;
                                     transition: all 0.3s ease;
-                                " onclick="loadExamplePlugin('calculator')">
+                                " onclick="window.loadExamplePlugin('calculator')">
                                     <div style="font-weight: 700; color: ${theme.tabActive}; margin-bottom: 8px; font-size: 15px;">🧮 Умный Калькулятор</div>
                                     <div style="color: ${theme.tabInactive}; font-size: 13px; margin-bottom: 10px;">Вычисляет математические выражения</div>
                                     <pre style="
@@ -1979,7 +1988,7 @@ function myPlugin(input) {
                                     border: 1px solid rgba(66, 133, 244, 0.1);
                                     cursor: pointer;
                                     transition: all 0.3s ease;
-                                " onclick="loadExamplePlugin('text')">
+                                " onclick="window.loadExamplePlugin('text')">
                                     <div style="font-weight: 700; color: ${theme.tabActive}; margin-bottom: 8px; font-size: 15px;">📝 Обработчик Текста</div>
                                     <div style="color: ${theme.tabInactive}; font-size: 13px; margin-bottom: 10px;">Анализирует и обрабатывает текст</div>
                                     <pre style="
@@ -2257,7 +2266,7 @@ function myPlugin(input) {
         return emojiMap.default;
     }
 
-    function loadExamplePlugin(type) {
+    window.loadExamplePlugin = function(type) {
         const examples = {
             meme: {
                 name: 'Генератор Мемов',
@@ -2927,7 +2936,7 @@ function myPlugin(input) {
         ];
 
         return new Promise((resolve, reject) => {
-            GM_xmlhttpRequest({
+            GM.xmlhttpRequest({
                 method: 'POST',
                 url: CONFIG.API_URL,
                 headers: {
@@ -3119,7 +3128,7 @@ function myPlugin(input) {
     function applyThemeStyles() {
         const theme = getCurrentTheme();
 
-        GM_addStyle(`
+        GM.addStyle(`
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -3406,96 +3415,6 @@ function myPlugin(input) {
                 100% { background-position: 0% 50%; }
             }
 
-            @media (max-width: 1600px) {
-                #kaai-panel {
-                    width: 95vw !important;
-                    max-width: 95vw !important;
-                }
-
-                .assistant-quick, .psych-quick {
-                    flex: 1 1 calc(50% - 10px) !important;
-                    min-width: 140px !important;
-                }
-
-                #plugins-content {
-                    padding: 20px !important;
-                }
-            }
-
-            @media (max-width: 1200px) {
-                #code-container {
-                    flex-direction: column !important;
-                }
-
-                #code-editor-container,
-                #code-right-panel {
-                    width: 100% !important;
-                    max-width: 100% !important;
-                    flex: none !important;
-                    height: 50vh !important;
-                }
-
-                .code-resizer {
-                    width: 100% !important;
-                    height: 8px !important;
-                    cursor: row-resize !important;
-                }
-
-                .post-button {
-                    min-width: 160px !important;
-                    padding: 10px 20px !important;
-                }
-
-                #premium-plugins-list,
-                #custom-plugins-list {
-                    grid-template-columns: 1fr !important;
-                }
-            }
-
-            @media (max-width: 768px) {
-                #kaai-btn {
-                    width: 60px !important;
-                    height: 60px !important;
-                    bottom: 20px !important;
-                    right: 20px !important;
-                    font-size: 28px !important;
-                }
-
-                #kaai-panel {
-                    width: 100vw !important;
-                    height: 100vh !important;
-                    max-height: 100vh !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    border-radius: 0 !important;
-                }
-
-                .kaai-tab {
-                    padding: 15px 10px !important;
-                    font-size: 13px !important;
-                }
-
-                .post-button {
-                    width: 100% !important;
-                    max-width: 100% !important;
-                    margin: 10px 0 !important;
-                }
-
-                .assistant-quick, .psych-quick {
-                    flex: 1 1 100% !important;
-                    margin-bottom: 8px !important;
-                }
-
-                .chat-message {
-                    max-width: 90% !important;
-                }
-
-                #plugins-content {
-                    padding: 16px !important;
-                    gap: 16px !important;
-                }
-            }
-
             ::-webkit-scrollbar {
                 width: 10px;
                 height: 10px;
@@ -3649,16 +3568,16 @@ function myPlugin(input) {
 
                     if (plugin) {
                         let defaultInput = '';
-                        if (pluginId === 'weather_advanced') {
-                            defaultInput = 'Москва';
-                        } else if (pluginId === 'test_plugin') {
-                            defaultInput = 'Тестовые данные';
+                        if (pluginId === 'post_generator') {
+                            defaultInput = 'Новости дня';
+                        } else if (pluginId === 'translator_pro') {
+                            defaultInput = 'Hello world, en, ru';
                         }
 
                         const input = prompt(
                             `🚀 Запуск плагина: ${plugin.name}\n\n` +
                             `📝 ${plugin.description}\n\n` +
-                            `Введите параметры:`,
+                            `Введите параметры (разделяйте запятыми):`,
                             defaultInput
                         );
 
@@ -3676,7 +3595,6 @@ function myPlugin(input) {
                 }
             });
 
-            window.loadExamplePlugin = loadExamplePlugin;
         }, 1000);
     }
 
